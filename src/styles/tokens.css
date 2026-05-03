@@ -19,13 +19,13 @@
   --font-mono:  'DM Mono', 'Menlo', monospace;
 
   /* ── Type scale ─────────────────────────────────────── */
-  --text-display: clamp(2.8rem, 5vw, 5rem);
-  --text-h1:      clamp(2.2rem, 3.5vw, 2.8rem);
-  --text-h2:      clamp(1.6rem, 2.5vw, 2.2rem);
-  --text-h3:      1.15rem;
+  --text-display: clamp(3.4rem, 8vw, 7.5rem);
+  --text-h1:      clamp(2.6rem, 5vw, 4.2rem);
+  --text-h2:      clamp(1.9rem, 3.2vw, 2.8rem);
+  --text-h3:      1.2rem;
   --text-body:    1.05rem;
-  --text-meta:    0.7rem;
-  --text-micro:   0.6rem;
+  --text-meta:    0.72rem;
+  --text-micro:   0.62rem;
 
   /* ── Spacing ────────────────────────────────────────── */
   --space-1:  0.25rem;
@@ -36,8 +36,9 @@
   --space-6:  2rem;
   --space-7:  3rem;
   --space-8:  4rem;
-  --space-9:  6rem;
-  --space-10: 8rem;
+  --space-9:  7rem;
+  --space-10: 10rem;
+  --space-11: 14rem;
 
   /* ── Layout ─────────────────────────────────────────── */
   --nav-height:      80px;

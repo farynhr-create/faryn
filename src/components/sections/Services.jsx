@@ -27,11 +27,11 @@ const services = [
 
 export default function Services() {
   return (
-    <section className={styles.section} aria-labelledby="services-label">
+    <section id="services" className={styles.section} aria-labelledby="services-label">
       <Hairline />
       <div className={styles.inner}>
         <div className={styles.meta}>
-          <SectionLabel id="services-label">Services</SectionLabel>
+          <SectionLabel id="services-label">02 — Services</SectionLabel>
           <h2 className={styles.heading}>
             What<br />
             I <em>offer</em>

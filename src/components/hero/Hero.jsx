@@ -31,8 +31,7 @@ export default function Hero() {
             variants={reduced ? {} : fadeUp}
             custom={1}
           >
-            Art that<br />
-            <em>tells</em><br />
+            Art that <em>tells</em><br />
             stories.
           </motion.h1>
 

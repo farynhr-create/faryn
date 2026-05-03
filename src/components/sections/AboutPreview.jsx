@@ -6,12 +6,12 @@ import styles from './AboutPreview.module.css'
 
 export default function AboutPreview() {
   return (
-    <section className={styles.section} aria-labelledby="about-preview-label">
+    <section id="about" className={styles.section} aria-labelledby="about-preview-label">
       <Hairline />
       <div className={styles.grid}>
         {/* Left */}
         <div className={styles.left}>
-          <SectionLabel id="about-preview-label">About</SectionLabel>
+          <SectionLabel id="about-preview-label">03 — About</SectionLabel>
           <h2 className={styles.heading}>
             Where art<br />
             <em>meets</em> strategy

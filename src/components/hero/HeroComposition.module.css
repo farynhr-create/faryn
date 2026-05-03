@@ -1,0 +1,110 @@
+.svg {
+  /* Allow leader text to overflow viewBox if needed without clipping */
+  overflow: visible;
+}
+
+/* ── Anchor group ──────────────────────────────────── */
+.anchor {
+  cursor: crosshair;
+  outline: none;
+  transition: opacity 0.3s ease;
+}
+
+.hitTarget {
+  /* invisible but receives pointer events */
+  pointer-events: all;
+}
+
+/* ── Idle state (subtle visibility) ────────────────── */
+.dot {
+  opacity: 0.6;
+  transition:
+    r 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+    fill 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.leader {
+  opacity: 0;
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
+  transition:
+    stroke-dashoffset 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 0.3s ease,
+    stroke 0.25s ease;
+}
+
+.terminator {
+  opacity: 0;
+  transition: opacity 0.3s ease 0.15s, fill 0.25s ease;
+}
+
+.numLabel {
+  opacity: 0;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: opacity 0.3s ease 0.18s, fill 0.25s ease;
+}
+
+.nameLabel {
+  opacity: 0;
+  transition:
+    opacity 0.4s ease 0.22s,
+    transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) 0.22s,
+    fill 0.25s ease;
+  transform-origin: center;
+  transform: translateY(4px);
+}
+
+/* ── Faint reveal on first paint (hint of discoverability) ── */
+.anchor .dot {
+  opacity: 0.55;
+}
+
+/* ── Hover / focus state ───────────────────────────── */
+.anchorHover .dot {
+  fill: var(--color-mark);
+  opacity: 1;
+}
+
+.anchorHover .leader {
+  opacity: 0.65;
+  stroke-dashoffset: 0;
+  stroke: var(--color-mark);
+}
+
+.anchorHover .terminator {
+  opacity: 0.85;
+  fill: var(--color-mark);
+}
+
+.anchorHover .numLabel {
+  opacity: 0.55;
+}
+
+.anchorHover .nameLabel {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Other anchors dim when one is active ──────────── */
+.anchorDimmed .dot {
+  opacity: 0.18;
+}
+
+/* ── Keyboard focus ring ───────────────────────────── */
+.anchor:focus-visible .dot {
+  fill: var(--color-mark);
+  opacity: 1;
+}
+
+.anchor:focus-visible .nameLabel {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.anchor:focus-visible .leader {
+  opacity: 0.65;
+  stroke-dashoffset: 0;
+  stroke: var(--color-mark);
+}

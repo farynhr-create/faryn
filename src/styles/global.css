@@ -103,6 +103,11 @@ ul, ol {
   color: var(--color-ink);
 }
 
+/* ── Scroll anchors ────────────────────────────────────── */
+section[id] {
+  scroll-margin-top: var(--nav-height);
+}
+
 /* ── Reduced motion ────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

@@ -1,21 +1,21 @@
 .bar {
   display: flex;
   align-items: center;
-  gap: var(--space-6);
+  gap: var(--space-5);
   flex-wrap: wrap;
 }
 
 .btn {
   font-family: var(--font-mono);
-  font-size: var(--text-meta);
-  letter-spacing: 0.15em;
+  font-size: var(--text-micro);
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-ink);
-  opacity: 0.5;
+  opacity: 0.45;
   background: none;
   border: none;
   cursor: crosshair;
-  padding: 0;
+  padding: var(--space-1) 0;
   position: relative;
   transition: opacity 0.2s ease;
 }

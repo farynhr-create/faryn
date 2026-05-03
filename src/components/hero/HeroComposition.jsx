@@ -1,135 +1,204 @@
-import { forwardRef } from 'react'
+import { forwardRef, useState, useCallback } from 'react'
 import { motion } from 'framer-motion'
-import ConstructionGrid from '@/components/compositions/ConstructionGrid'
-import ShadowedRect from '@/components/compositions/primitives/ShadowedRect'
-import MeasurementTick from '@/components/compositions/primitives/MeasurementTick'
-import CrossMark from '@/components/compositions/primitives/CrossMark'
-import Dot from '@/components/compositions/primitives/Dot'
+import styles from './HeroComposition.module.css'
 
-/* Construction line coordinates (SVG space) — must match the data used in HeroCanvas */
+/* Square viewBox — composition reads as a single centred mark */
+const VB = 600
+const C = VB / 2 // 300, the center
+
+/* Two construction lines — horizontal & vertical axes through center */
 export const CONSTRUCTION_LINES = [
-  { x1: 0,   y1: 70,  x2: 600, y2: 70,  baseOpacity: 0.09, id: 'h0' },
-  { x1: 0,   y1: 200, x2: 600, y2: 200, baseOpacity: 0.08, id: 'h1' },
-  { x1: 0,   y1: 330, x2: 600, y2: 330, baseOpacity: 0.11, id: 'h2' },
-  { x1: 0,   y1: 490, x2: 600, y2: 490, baseOpacity: 0.09, id: 'h3' },
-  { x1: 0,   y1: 620, x2: 600, y2: 620, baseOpacity: 0.08, id: 'h4' },
-  { x1: 90,  y1: 0,   x2: 90,  y2: 700, baseOpacity: 0.10, id: 'v0' },
-  { x1: 250, y1: 0,   x2: 250, y2: 700, baseOpacity: 0.08, id: 'v1' },
-  { x1: 390, y1: 0,   x2: 390, y2: 700, baseOpacity: 0.09, id: 'v2' },
-  { x1: 530, y1: 0,   x2: 530, y2: 700, baseOpacity: 0.08, id: 'v3' },
-  { x1: 0,   y1: 100, x2: 600, y2: 600, baseOpacity: 0.07, id: 'd0' },
-  { x1: 600, y1: 80,  x2: 0,   y2: 500, baseOpacity: 0.06, id: 'd1' },
+  { x1: 0, y1: C, x2: VB, y2: C, baseOpacity: 0.18, id: 'h0' },
+  { x1: C, y1: 0, x2: C, y2: VB, baseOpacity: 0.18, id: 'v0' },
 ]
+
+/* Four dots — wayfinders to home-page sections.
+ * Brought inward from the corners so they orbit the central red mark.
+ * Order: clockwise from top-left = Work / Services / About / Contact. */
+const DOT_OFFSET = 170 // distance from center to each dot
 
 export const SCATTERED_DOTS = [
-  { cx: 150, cy: 290, baseR: 2.5, id: 'dot0' },
-  { cx: 230, cy: 395, baseR: 2.0, id: 'dot1' },
-  { cx: 300, cy: 150, baseR: 2.5, id: 'dot2' },
-  { cx: 420, cy: 340, baseR: 2.0, id: 'dot3' },
-  { cx: 460, cy: 440, baseR: 2.5, id: 'dot4' },
-  { cx: 170, cy: 490, baseR: 2.0, id: 'dot5' },
-  { cx: 530, cy: 290, baseR: 2.0, id: 'dot6' },
-  { cx: 340, cy: 560, baseR: 2.5, id: 'dot7' },
+  {
+    id: 'dot0',
+    cx: C - DOT_OFFSET, cy: C - DOT_OFFSET, baseR: 3.4,
+    target: 'work', num: '01', label: 'Work',
+    leader: { x: C - DOT_OFFSET, y: C - DOT_OFFSET - 38 },
+    text:   { x: C - DOT_OFFSET, y: C - DOT_OFFSET - 50, anchor: 'middle' },
+    align:  'top',
+  },
+  {
+    id: 'dot1',
+    cx: C + DOT_OFFSET, cy: C - DOT_OFFSET, baseR: 3.4,
+    target: 'services', num: '02', label: 'Services',
+    leader: { x: C + DOT_OFFSET, y: C - DOT_OFFSET - 38 },
+    text:   { x: C + DOT_OFFSET, y: C - DOT_OFFSET - 50, anchor: 'middle' },
+    align:  'top',
+  },
+  {
+    id: 'dot2',
+    cx: C + DOT_OFFSET, cy: C + DOT_OFFSET, baseR: 3.4,
+    target: 'about', num: '03', label: 'About',
+    leader: { x: C + DOT_OFFSET, y: C + DOT_OFFSET + 38 },
+    text:   { x: C + DOT_OFFSET, y: C + DOT_OFFSET + 50, anchor: 'middle' },
+    align:  'bottom',
+  },
+  {
+    id: 'dot3',
+    cx: C - DOT_OFFSET, cy: C + DOT_OFFSET, baseR: 3.4,
+    target: 'contact', num: '04', label: 'Contact',
+    leader: { x: C - DOT_OFFSET, y: C + DOT_OFFSET + 38 },
+    text:   { x: C - DOT_OFFSET, y: C + DOT_OFFSET + 50, anchor: 'middle' },
+    align:  'bottom',
+  },
 ]
 
-/* Base position of the red circle (SVG space) */
-export const RED_CIRCLE_BASE = { cx: 468, cy: 162, r: 44 }
+/* The central red mark — non-interactive, the studio's hanko */
+export const RED_CIRCLE_BASE = { cx: C, cy: C, r: 44 }
 
-const HeroComposition = forwardRef(function HeroComposition({ circleSpringX, circleSpringY }, svgRef) {
+function smoothScrollTo(id) {
+  const el = document.getElementById(id)
+  if (!el) return
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
+
+const HeroComposition = forwardRef(function HeroComposition(
+  { circleSpringX, circleSpringY },
+  svgRef,
+) {
+  const [hovered, setHovered] = useState(null)
+
+  const onActivate = useCallback((target) => {
+    smoothScrollTo(target)
+    if (history.pushState) {
+      history.pushState(null, '', `#${target}`)
+    }
+  }, [])
+
+  const onKeyDown = useCallback(
+    (e, target) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault()
+        onActivate(target)
+      }
+    },
+    [onActivate],
+  )
+
   return (
     <svg
       ref={svgRef}
-      viewBox="0 0 600 700"
+      viewBox={`0 0 ${VB} ${VB}`}
       xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-      role="presentation"
+      role="navigation"
+      aria-label="Page sections"
       style={{ width: '100%', height: '100%', display: 'block' }}
-      preserveAspectRatio="xMidYMid slice"
+      preserveAspectRatio="xMidYMid meet"
+      className={styles.svg}
     >
-      {/* Construction grid — data-ids used by HeroCanvas for direct DOM updates */}
+      {/* Axis lines */}
       <g fill="none" stroke="var(--color-ink)" strokeWidth="0.5">
-        {CONSTRUCTION_LINES.map(l => (
+        {CONSTRUCTION_LINES.map((l) => (
           <line
             key={l.id}
             data-line-id={l.id}
-            x1={l.x1} y1={l.y1}
-            x2={l.x2} y2={l.y2}
+            x1={l.x1}
+            y1={l.y1}
+            x2={l.x2}
+            y2={l.y2}
             opacity={l.baseOpacity}
           />
         ))}
       </g>
 
-      {/* Main composition */}
-      <ShadowedRect x={110} y={165} width={280} height={360} />
+      {/* Four nav anchors */}
+      {SCATTERED_DOTS.map((d) => {
+        const isHover = hovered === d.id
+        const isDimmed = hovered !== null && !isHover
+        return (
+          <g
+            key={d.id}
+            className={`${styles.anchor} ${isHover ? styles.anchorHover : ''} ${isDimmed ? styles.anchorDimmed : ''}`}
+            role="link"
+            tabIndex={0}
+            aria-label={`${d.num} — Go to ${d.label} section`}
+            onClick={() => onActivate(d.target)}
+            onKeyDown={(e) => onKeyDown(e, d.target)}
+            onMouseEnter={() => setHovered(d.id)}
+            onMouseLeave={() => setHovered(null)}
+            onFocus={() => setHovered(d.id)}
+            onBlur={() => setHovered(null)}
+          >
+            {/* Generous invisible hit target */}
+            <circle
+              cx={d.cx}
+              cy={d.cy}
+              r={32}
+              fill="transparent"
+              className={styles.hitTarget}
+            />
 
-      {/* Inner rect */}
-      <rect x={155} y={215} width={190} height={260} fill="none" stroke="var(--color-ink)" strokeWidth="0.5" />
+            {/* Leader hairline from dot to label */}
+            <line
+              className={styles.leader}
+              x1={d.cx}
+              y1={d.cy}
+              x2={d.leader.x}
+              y2={d.leader.y}
+              stroke="var(--color-ink)"
+              strokeWidth="0.5"
+            />
 
-      {/* Arc — from top-right of main rect curving to bottom */}
-      <path
-        d="M 390,165 Q 490,345 390,525"
-        fill="none"
-        stroke="var(--color-ink)"
-        strokeWidth="0.6"
-        opacity="0.18"
-      />
+            {/* Number — small mono */}
+            <text
+              className={styles.numLabel}
+              x={d.text.x}
+              y={d.text.y}
+              textAnchor={d.text.anchor}
+              dy={d.align === 'bottom' ? '0.7em' : '-0.4em'}
+              fontFamily="var(--font-mono)"
+              fontSize="7"
+              fill="var(--color-ink)"
+            >
+              {d.num}
+            </text>
 
-      {/* Measurement ticks at main rect corners */}
-      <MeasurementTick x={110} y={165} corner="tl" />
-      <MeasurementTick x={390} y={165} corner="tr" />
-      <MeasurementTick x={110} y={525} corner="bl" />
-      <MeasurementTick x={390} y={525} corner="br" />
+            {/* Section name — serif italic */}
+            <text
+              className={styles.nameLabel}
+              x={d.text.x}
+              y={d.text.y}
+              textAnchor={d.text.anchor}
+              dy={d.align === 'bottom' ? '2em' : '-1.7em'}
+              fontFamily="var(--font-serif)"
+              fontStyle="italic"
+              fontSize="15"
+              fill="var(--color-ink)"
+            >
+              {d.label}
+            </text>
 
-      {/* Cross marks */}
-      <CrossMark cx={540} cy={90} />
-      <CrossMark cx={60}  cy={610} />
+            {/* The dot */}
+            <circle
+              data-dot-id={d.id}
+              className={styles.dot}
+              cx={d.cx}
+              cy={d.cy}
+              r={d.baseR}
+              fill="var(--color-ink)"
+            />
+          </g>
+        )
+      })}
 
-      {/* Scattered dots — data-ids used by HeroCanvas */}
-      {SCATTERED_DOTS.map(d => (
-        <circle
-          key={d.id}
-          data-dot-id={d.id}
-          cx={d.cx} cy={d.cy}
-          r={d.baseR}
-          fill="var(--color-ink)"
-          opacity="0.28"
-        />
-      ))}
-
-      {/* Red circle — Framer Motion spring drift */}
+      {/* Central red mark — drifts on cursor, non-interactive */}
       <motion.circle
         cx={RED_CIRCLE_BASE.cx}
         cy={RED_CIRCLE_BASE.cy}
         r={RED_CIRCLE_BASE.r}
         fill="var(--color-mark)"
-        opacity="0.87"
-        stroke="var(--color-ink)"
-        strokeWidth="0.5"
-        strokeOpacity="0.2"
         style={{ x: circleSpringX, y: circleSpringY }}
+        aria-hidden="true"
       />
-
-      {/* Red circle halo */}
-      <motion.circle
-        cx={RED_CIRCLE_BASE.cx}
-        cy={RED_CIRCLE_BASE.cy}
-        r={RED_CIRCLE_BASE.r * 1.45}
-        fill="var(--color-mark)"
-        opacity="0.1"
-        style={{ x: circleSpringX, y: circleSpringY }}
-      />
-
-      {/* Corner metadata */}
-      <text
-        x="578" y="682"
-        fontFamily="var(--font-mono)"
-        fontSize="6.5"
-        fill="var(--color-ink)"
-        opacity="0.35"
-        textAnchor="end"
-      >
-        &#169;2025 — NL — 001
-      </text>
     </svg>
   )
 })

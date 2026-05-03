@@ -10,11 +10,11 @@ export default function SelectedWork({ limit = 3 }) {
   const shown = projects.slice(0, limit)
 
   return (
-    <section className={styles.section} aria-labelledby="selected-work-label">
+    <section id="work" className={styles.section} aria-labelledby="selected-work-label">
       <Hairline />
       <div className={styles.inner}>
         <header className={styles.header}>
-          <SectionLabel id="selected-work-label">Selected work</SectionLabel>
+          <SectionLabel id="selected-work-label">01 — Selected work</SectionLabel>
           <GhostLink to="/work">View all</GhostLink>
         </header>
         <div className={styles.grid}>
