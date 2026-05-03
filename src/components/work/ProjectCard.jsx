@@ -17,7 +17,7 @@ const ProjectCard = memo(function ProjectCard({ project }) {
   const Comp = THUMBNAILS[thumbnail]
 
   return (
-    <Link to={`/work/${slug}`} className={styles.card}>
+    <Link to={`/portfolio/${slug}`} className={styles.card}>
       <div className={styles.thumbnail}>
         {Comp
           ? <Comp />

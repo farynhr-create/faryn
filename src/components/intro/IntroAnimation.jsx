@@ -91,7 +91,6 @@ export default function IntroAnimation({ onComplete }) {
   }, [rm])
 
   const handleExitComplete = () => {
-    sessionStorage.setItem('faryn-intro-seen', '1')
     onComplete?.()
   }
 

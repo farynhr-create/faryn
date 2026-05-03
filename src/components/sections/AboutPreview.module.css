@@ -21,9 +21,15 @@
   font-family: var(--font-serif);
   font-size: var(--text-h2);
   font-weight: 400;
-  line-height: 1.15;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
   color: var(--color-ink);
   max-width: none;
+}
+
+.heading em {
+  font-style: italic;
+  color: var(--color-ink-soft);
 }
 
 .body {
@@ -31,6 +37,7 @@
   font-size: var(--text-body);
   line-height: 1.75;
   color: var(--color-ink);
+  opacity: 0.85;
   max-width: 52ch;
 }
 
@@ -38,6 +45,7 @@
   margin-top: var(--space-3);
 }
 
+/* Right — calm haiku composition */
 .right {
   display: flex;
   align-items: center;
@@ -47,8 +55,28 @@
   overflow: hidden;
 }
 
+.composition {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  max-height: 520px;
+  display: block;
+  overflow: visible;
+}
+
 @media (max-width: 1024px) {
   .grid { grid-template-columns: 1fr; }
-  .left { border-right: none; padding: var(--space-7) var(--content-padding); }
-  .right { border-top: var(--hairline); padding: var(--space-7); max-height: 380px; }
+  .left {
+    border-right: none;
+    padding: var(--space-7) var(--content-padding);
+  }
+  .right {
+    border-top: var(--hairline);
+    padding: var(--space-7);
+    max-height: 380px;
+  }
+}
+
+@media (max-width: 640px) {
+  .left { padding-inline: var(--space-5); }
 }

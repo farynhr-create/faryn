@@ -5,9 +5,9 @@ import FilterBar from '@/components/work/FilterBar'
 import ProjectIndex from '@/components/work/ProjectIndex'
 import Hairline from '@/components/ui/Hairline'
 import PageHeader from '@/components/ui/PageHeader'
-import styles from './Work.module.css'
+import styles from './Portfolio.module.css'
 
-export default function Work() {
+export default function Portfolio() {
   const [activeFilter, setActiveFilter] = useState('all')
 
   const filtered = useMemo(() => {
@@ -22,7 +22,7 @@ export default function Work() {
   return (
     <>
       <Helmet>
-        <title>Work — Faryn Studio</title>
+        <title>Portfolio — Faryn Studio</title>
         <meta
           name="description"
           content="Selected projects across visual art, content creation, content strategy, and teaching."
@@ -34,13 +34,13 @@ export default function Work() {
 
         <PageHeader
           index="01 / 04"
-          label="Work"
+          label="Portfolio"
           meta={[
             { label: 'Volume',  value: 'I' },
             { label: 'Years',   value: yearRange },
             { label: 'Entries', value: String(projects.length).padStart(2, '0') },
           ]}
-          title={<>Selected <em>work</em></>}
+          title={<>Selected <em>projects</em></>}
           intro="A working index of projects spanning visual art, editorial content, strategy, and teaching. The list is curated, not comprehensive — only work I would still defend today."
         />
 

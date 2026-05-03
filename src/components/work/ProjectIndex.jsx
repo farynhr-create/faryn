@@ -54,7 +54,7 @@ export default function ProjectIndex({ projects }) {
                   exit={{ opacity: 0, transition: { duration: 0.18 } }}
                   className={styles.item}
                 >
-                  <Link to={`/work/${p.slug}`} className={styles.row}>
+                  <Link to={`/portfolio/${p.slug}`} className={styles.row}>
                     <span className={styles.idx}>
                       <span className={styles.dot} aria-hidden="true" />
                       {pad(i + 1)}

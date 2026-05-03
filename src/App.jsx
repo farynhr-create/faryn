@@ -6,7 +6,7 @@ import { LightboxProvider } from '@/context/LightboxContext'
 import { MobileMenuProvider } from '@/context/MobileMenuContext'
 import Layout from '@/routes/Layout'
 import Home from '@/routes/Home'
-import Work from '@/routes/Work'
+import Portfolio from '@/routes/Portfolio'
 import Lightbox from '@/components/work/Lightbox'
 import IntroAnimation from '@/components/intro/IntroAnimation'
 
@@ -22,9 +22,9 @@ function PageFallback() {
 }
 
 export default function App() {
-  const [showIntro, setShowIntro] = useState(
-    () => !sessionStorage.getItem('faryn-intro-seen')
-  )
+  /* Intro plays on every fresh page load (hard refresh) — App mounts once
+   * per page lifetime, so this is true exactly when the document loads. */
+  const [showIntro, setShowIntro] = useState(true)
 
   return (
     <HelmetProvider>
@@ -34,9 +34,9 @@ export default function App() {
             <Routes>
               <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
-                <Route path="work" element={<Work />} />
+                <Route path="portfolio" element={<Portfolio />} />
                 <Route
-                  path="work/:slug"
+                  path="portfolio/:slug"
                   element={
                     <Suspense fallback={<PageFallback />}>
                       <ProjectDetail />

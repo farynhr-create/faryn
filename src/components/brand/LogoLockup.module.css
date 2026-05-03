@@ -19,6 +19,7 @@
   color: var(--color-ink);
   opacity: 0.6;
   padding-left: 4px;
+  transition: opacity 0.3s ease, color 0.3s ease;
 }
 
 /* ── Inline: FARYN beside "studio" in italic serif ── */
@@ -36,6 +37,64 @@
   opacity: 0.85;
   letter-spacing: 0.02em;
   text-transform: lowercase;
+  transition: opacity 0.3s ease;
+}
+
+/* ── Hover bloom ─────────────────────────────────────
+ * The whole lockup acts as the hover surface. Junction dots scale &
+ * brighten, red marks pulse with a red glow, line strokes thicken.
+ * A subtle stagger waves the bloom across the five letters.
+ */
+.lockup [data-junction] {
+  transition:
+    transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+    filter   0.45s ease;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.lockup line {
+  transition:
+    stroke-width 0.35s ease,
+    opacity      0.35s ease;
+}
+
+.lockup:hover [data-junction="ink"] {
+  transform: scale(1.6);
+  filter: drop-shadow(0 0 5px rgba(10, 10, 10, 0.55));
+}
+
+.lockup:hover [data-junction="red"] {
+  transform: scale(1.95);
+  filter:
+    drop-shadow(0 0 7px var(--color-mark))
+    drop-shadow(0 0 18px rgba(212, 43, 43, 0.7));
+}
+
+.lockup:hover line {
+  stroke-width: 10.5;
+}
+
+.lockup:hover .studioLabel {
+  opacity: 1;
+}
+
+/* Bloom wave — each letter lights ~60ms after the previous */
+.lockup:hover [data-letter="0"] [data-junction] { transition-delay: 0ms; }
+.lockup:hover [data-letter="1"] [data-junction] { transition-delay: 60ms; }
+.lockup:hover [data-letter="2"] [data-junction] { transition-delay: 120ms; }
+.lockup:hover [data-letter="3"] [data-junction] { transition-delay: 180ms; }
+.lockup:hover [data-letter="4"] [data-junction] { transition-delay: 240ms; }
+
+/* Reduced motion — keep the brighten, drop the scale & wave */
+@media (prefers-reduced-motion: reduce) {
+  .lockup:hover [data-junction="ink"],
+  .lockup:hover [data-junction="red"] {
+    transform: none;
+  }
+  .lockup:hover [data-letter] [data-junction] {
+    transition-delay: 0ms;
+  }
 }
 
 /* Responsive — inline collapses to stacked on small screens */

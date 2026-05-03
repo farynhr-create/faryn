@@ -51,8 +51,8 @@ export default function Hero() {
             variants={reduced ? {} : fadeUp}
             custom={3}
           >
-            <Link to="/work">
-              <Button>View work</Button>
+            <Link to="/portfolio">
+              <Button>View portfolio</Button>
             </Link>
           </motion.div>
         </motion.div>

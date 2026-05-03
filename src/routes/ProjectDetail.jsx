@@ -13,7 +13,7 @@ export default function ProjectDetail() {
   const idx       = projects.findIndex(p => p.slug === slug)
   const project   = projects[idx]
 
-  if (!project) return <Navigate to="/work" replace />
+  if (!project) return <Navigate to="/portfolio" replace />
 
   const next = projects[(idx + 1) % projects.length]
   const { title, subtitle, year, role, client, medium, filterLabel, context, thinking, outcome, gallery } = project
@@ -40,7 +40,7 @@ export default function ProjectDetail() {
         <header className={styles.header}>
           <div className={styles.headerInner}>
             <div className={styles.breadcrumb}>
-              <Link to="/work" className={styles.breadcrumbLink}>WORK</Link>
+              <Link to="/portfolio" className={styles.breadcrumbLink}>PORTFOLIO</Link>
               <span className={styles.sep}>/</span>
               <span>{filterLabel.toUpperCase()}</span>
               {year && (
@@ -164,7 +164,7 @@ export default function ProjectDetail() {
         <div className={styles.nextProject}>
           <div className={styles.nextInner}>
             <SectionLabel>Next project</SectionLabel>
-            <Link to={`/work/${next.slug}`} className={styles.nextLink}>
+            <Link to={`/portfolio/${next.slug}`} className={styles.nextLink}>
               <span className={styles.nextTitle}>{next.title}</span>
               <span className={styles.nextArrow} aria-hidden="true">→</span>
             </Link>

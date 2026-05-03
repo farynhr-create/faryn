@@ -14,8 +14,8 @@ export default function SelectedWork({ limit = 3 }) {
       <Hairline />
       <div className={styles.inner}>
         <header className={styles.header}>
-          <SectionLabel id="selected-work-label">01 — Selected work</SectionLabel>
-          <GhostLink to="/work">View all</GhostLink>
+          <SectionLabel id="selected-work-label" accent>01 — Selected projects</SectionLabel>
+          <GhostLink to="/portfolio">View portfolio</GhostLink>
         </header>
         <div className={styles.grid}>
           {shown.map(project => (

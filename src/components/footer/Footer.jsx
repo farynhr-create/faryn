@@ -16,7 +16,7 @@ export default function Footer() {
 
         <nav className={styles.nav} aria-label="Footer navigation">
           <ul className={styles.navList}>
-            <li><Link to="/work"     className={styles.navLink}>Work</Link></li>
+            <li><Link to="/portfolio" className={styles.navLink}>Portfolio</Link></li>
             <li><Link to="/services" className={styles.navLink}>Services</Link></li>
             <li><Link to="/about"    className={styles.navLink}>About</Link></li>
             <li><Link to="/contact"  className={styles.navLink}>Contact</Link></li>

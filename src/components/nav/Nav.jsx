@@ -6,7 +6,7 @@ import MobileMenu from './MobileMenu'
 import styles from './Nav.module.css'
 
 const links = [
-  { to: '/work',     label: 'Work' },
+  { to: '/portfolio', label: 'Portfolio' },
   { to: '/services', label: 'Services' },
   { to: '/about',    label: 'About' },
   { to: '/contact',  label: 'Contact' },

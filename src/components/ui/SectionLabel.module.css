@@ -28,3 +28,13 @@
   background: var(--color-ink);
   opacity: 0.5;
 }
+
+/* Red dot accent — small hanko-style mark before the label text */
+.dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-mark);
+  flex-shrink: 0;
+}
