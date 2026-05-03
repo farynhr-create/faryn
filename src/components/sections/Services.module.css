@@ -1,0 +1,98 @@
+.section {
+  background: var(--color-paper);
+}
+
+.inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  border-left: var(--hairline);
+}
+
+/* Left meta column */
+.meta {
+  padding: var(--space-9) var(--space-7) var(--space-9) var(--content-padding);
+  border-right: var(--hairline);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.heading {
+  font-family: var(--font-serif);
+  font-size: var(--text-h2);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--color-ink);
+  max-width: none;
+}
+
+/* Right services grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border-top: var(--hairline);
+}
+
+/* Each service cell */
+.cell {
+  padding: var(--space-7);
+  border-right: var(--hairline);
+  border-bottom: var(--hairline);
+  background: var(--color-paper);
+  transition: background 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.cell:hover {
+  background: var(--color-paper-deep);
+}
+
+.num {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  color: var(--color-ink);
+  opacity: 0.3;
+  letter-spacing: 0.1em;
+}
+
+/* The 8px red dot — one per cell */
+.dot {
+  display: block;
+  width: 8px;
+  height: 8px;
+  background: var(--color-mark);
+  border-radius: 50%;
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: var(--text-h3);
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--color-ink);
+  max-width: none;
+}
+
+.desc {
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  line-height: 1.6;
+  color: var(--color-ink);
+  opacity: 0.7;
+  max-width: 38ch;
+}
+
+@media (max-width: 1024px) {
+  .inner { grid-template-columns: 1fr; }
+  .meta  { border-right: none; padding-bottom: var(--space-6); }
+  .grid  { border-top: var(--hairline); }
+}
+
+@media (max-width: 768px) {
+  .grid { grid-template-columns: 1fr; }
+  .cell { padding: var(--space-6); }
+}

@@ -1,0 +1,64 @@
+/* ── Type utilities ────────────────────────────────────── */
+.t-display {
+  font-family: var(--font-serif);
+  font-size: var(--text-display);
+  line-height: 1.05;
+  font-weight: 400;
+}
+
+.t-h1 {
+  font-family: var(--font-serif);
+  font-size: var(--text-h1);
+  line-height: 1.1;
+  font-weight: 400;
+}
+
+.t-h2 {
+  font-family: var(--font-serif);
+  font-size: var(--text-h2);
+  line-height: 1.15;
+  font-weight: 400;
+}
+
+.t-h3 {
+  font-family: var(--font-serif);
+  font-size: var(--text-h3);
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+.t-body {
+  font-family: var(--font-serif);
+  font-size: var(--text-body);
+  line-height: 1.75;
+  font-weight: 400;
+}
+
+.t-meta {
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.t-micro {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.t-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  line-height: 1.6;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* italic is reserved for one word per headline */
+em {
+  font-style: italic;
+  font-weight: 400;
+}

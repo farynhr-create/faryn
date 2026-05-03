@@ -1,0 +1,4 @@
+.main {
+  padding-top: var(--nav-height);
+  min-height: calc(100svh - var(--nav-height));
+}

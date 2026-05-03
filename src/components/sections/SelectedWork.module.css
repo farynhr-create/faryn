@@ -1,0 +1,33 @@
+.section {
+  background: var(--color-paper);
+}
+
+.inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-inline: var(--content-padding);
+  padding-block: var(--space-9);
+}
+
+.header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--space-8);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  /* Hairlines between cards instead of gap */
+  border-left: var(--hairline);
+}
+
+@media (max-width: 1024px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .inner { padding-block: var(--space-7); }
+}
+
+@media (max-width: 640px) {
+  .grid { grid-template-columns: 1fr; }
+}

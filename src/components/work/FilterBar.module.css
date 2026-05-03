@@ -1,0 +1,40 @@
+.bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.btn {
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  opacity: 0.5;
+  background: none;
+  border: none;
+  cursor: crosshair;
+  padding: 0;
+  position: relative;
+  transition: opacity 0.2s ease;
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
+
+/* Active — 0.5px underline at --color-mark */
+.active {
+  opacity: 1;
+}
+
+.active::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  right: 0;
+  height: 0.5px;
+  background: var(--color-mark);
+}

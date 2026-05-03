@@ -1,0 +1,192 @@
+/* ─── Design Tokens ──────────────────────────────────────────────── */
+:root {
+  --bg:            #090909;
+  --bg-2:          #111111;
+  --bg-3:          #181818;
+  --text:          #f2efe8;
+  --text-muted:    #5a5855;
+  --text-dim:      #8a8783;
+  --accent:        #c9a96e;
+  --accent-glow:   rgba(201, 169, 110, 0.18);
+  --accent-line:   rgba(201, 169, 110, 0.25);
+  --border:        rgba(242, 239, 232, 0.07);
+  --border-accent: rgba(201, 169, 110, 0.2);
+
+  --font-display: 'Cormorant', Georgia, serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* ─── Reset ─────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img, video { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; border: none; background: none; font: inherit; color: inherit; }
+ul, ol { list-style: none; }
+
+/* ─── Scrollbar ─────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 2px; }
+
+/* ─── Selection ─────────────────────────────────────────────────── */
+::selection { background: var(--accent-glow); color: var(--accent); }
+
+/* ─── Typography scale ──────────────────────────────────────────── */
+.display-xl {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 10vw, 10rem);
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+.display-lg {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 6rem);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.display-md {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.5vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.1;
+}
+.label {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+}
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* ─── Layout utilities ──────────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 5rem);
+}
+
+/* ─── Dot grid background pattern ──────────────────────────────── */
+.dot-bg {
+  background-image: radial-gradient(circle, rgba(201,169,110,0.12) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+/* ─── Horizontal rule with dots ─────────────────────────────────── */
+.dot-rule {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+}
+.dot-rule::before,
+.dot-rule::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.dot-rule .dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+/* ─── Section spacing ───────────────────────────────────────────── */
+.section {
+  padding: clamp(5rem, 10vw, 10rem) 0;
+}
+
+/* ─── Button styles ─────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 2rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: all 0.3s var(--ease-out);
+  position: relative;
+}
+.btn-outline {
+  border: 1px solid var(--border-accent);
+  color: var(--text);
+}
+.btn-outline:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-glow);
+}
+.btn-ghost {
+  color: var(--text-dim);
+}
+.btn-ghost:hover {
+  color: var(--text);
+}
+.btn .arrow {
+  display: inline-block;
+  transition: transform 0.3s var(--ease-out);
+}
+.btn:hover .arrow { transform: translateX(4px); }
+
+/* ─── Animated underline ─────────────────────────────────────────── */
+.underline-anim {
+  position: relative;
+}
+.underline-anim::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.4s var(--ease-out);
+}
+.underline-anim:hover::after { width: 100%; }
+
+/* ─── Accent dot ─────────────────────────────────────────────────── */
+.accent-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: inline-block;
+}
+
+/* ─── Page transition wrapper ───────────────────────────────────── */
+.page {
+  min-height: 100vh;
+}

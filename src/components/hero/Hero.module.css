@@ -1,0 +1,85 @@
+.hero {
+  width: 100%;
+}
+
+/* 50/50 split — full viewport minus nav */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 0.5px 1fr;
+  height: calc(100svh - var(--nav-height));
+  min-height: 560px;
+}
+
+/* Left half */
+.left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--space-9) var(--space-8) var(--space-9) var(--content-padding);
+  gap: var(--space-6);
+}
+
+/* Vertical hairline divider */
+.divider {
+  background: var(--color-ink);
+  opacity: 1;
+  width: 0.5px;
+  align-self: stretch;
+}
+
+/* Right half */
+.right {
+  background: var(--color-paper);
+  overflow: hidden;
+  position: relative;
+}
+
+.headline {
+  font-family: var(--font-serif);
+  font-size: var(--text-display);
+  font-weight: 400;
+  line-height: 1.05;
+  color: var(--color-ink);
+}
+
+.headline em {
+  font-style: italic;
+  color: var(--color-ink-soft);
+}
+
+.sub {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.7;
+  color: var(--color-ink);
+  opacity: 0.7;
+  max-width: 340px;
+}
+
+.cta {
+  margin-top: var(--space-2);
+}
+
+/* Mobile: single column, composition above text */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .left {
+    padding: var(--space-7) var(--space-5);
+    order: 2;
+    gap: var(--space-5);
+  }
+
+  .right {
+    order: 1;
+  }
+
+  .mobileComposition {
+    height: 350px;
+    width: 100%;
+    overflow: hidden;
+  }
+}

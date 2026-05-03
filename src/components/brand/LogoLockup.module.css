@@ -1,0 +1,52 @@
+.lockup {
+  display: inline-flex;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ── Stacked: FARYN on top, "Studio" below in mono ── */
+.stacked {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.stacked .studioLabel {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  opacity: 0.6;
+  padding-left: 4px;
+}
+
+/* ── Inline: FARYN beside "studio" in italic serif ── */
+.inline {
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.inline .studioLabel {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--color-ink);
+  opacity: 0.85;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+}
+
+/* Responsive — inline collapses to stacked on small screens */
+@media (max-width: 640px) {
+  .inline {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .inline .studioLabel {
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,30 @@
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  opacity: 0.5;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  max-width: none;
+}
+
+.before::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 0.5px;
+  background: var(--color-ink);
+  opacity: 0.5;
+}
+
+.after::after {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 0.5px;
+  background: var(--color-ink);
+  opacity: 0.5;
+}

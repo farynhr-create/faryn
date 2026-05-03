@@ -1,0 +1,26 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: var(--hairline);
+  border-left: var(--hairline);
+  min-height: 400px;
+}
+
+.empty {
+  grid-column: 1 / -1;
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  color: var(--color-ink);
+  opacity: 0.4;
+  text-align: center;
+  padding: var(--space-10) var(--space-4);
+  max-width: none;
+}
+
+@media (max-width: 1024px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .grid { grid-template-columns: 1fr; }
+}

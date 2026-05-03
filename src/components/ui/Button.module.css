@@ -1,0 +1,28 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6);
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: none;
+  cursor: crosshair;
+  transition: background 0.2s ease;
+}
+
+.btn:hover {
+  background: var(--color-ink-soft);
+}
+
+.arrow {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.btn:hover .arrow {
+  transform: translateX(4px);
+}
