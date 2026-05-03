@@ -26,15 +26,22 @@ export default function Hero() {
             <SectionLabel variant="before">Visual Studio · Amsterdam</SectionLabel>
           </motion.div>
 
-          {/* Haiku-style 3-line headline with cascading indent */}
+          {/* Haiku-style 3-line headline with cascading indent.
+              Brushstroke tick opens the verse, hanko seal closes it. */}
           <motion.h1
             className={styles.headline}
             variants={reduced ? {} : fadeUp}
             custom={1}
           >
-            <span className={styles.lineA}>Art</span>
+            <span className={styles.lineA}>
+              <span className={styles.tick} aria-hidden="true" />
+              Art
+            </span>
             <span className={styles.lineB}>that <em>tells</em></span>
-            <span className={styles.lineC}>stories.</span>
+            <span className={styles.lineC}>
+              stories
+              <span className={styles.seal} aria-hidden="true" />
+            </span>
           </motion.h1>
 
           <motion.p

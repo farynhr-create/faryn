@@ -45,27 +45,70 @@
 /* ── Headline as a 3-line haiku ────────────────────── */
 .headline {
   font-family: var(--font-serif);
-  font-size: clamp(2.4rem, 5vw, 4.4rem);
+  font-size: clamp(2.5rem, 5.2vw, 4.6rem);
   font-weight: 400;
-  line-height: 1.0;
-  letter-spacing: -0.025em;
+  line-height: 0.98;
+  letter-spacing: -0.028em;
   color: var(--color-ink);
   max-width: none;
   display: flex;
   flex-direction: column;
-  gap: 0.08em;
+  gap: 0.12em;
+  font-feature-settings: 'kern' 1, 'liga' 1, 'lnum' 1, 'calt' 1;
 }
 
-.headline span { display: block; }
+.headline > span {
+  display: block;
+  position: relative;
+}
 
-/* Cascading indent — each line steps further right, like haiku breath */
+/* Cascading indent — golden-ratio step, breathing like haiku */
 .lineA { padding-left: 0; }
-.lineB { padding-left: 1.6em; }
-.lineC { padding-left: 3.2em; }
+.lineB { padding-left: 1.35em; }
+.lineC { padding-left: 2.7em; }
 
 .headline em {
   font-style: italic;
+  font-weight: 400;
   color: var(--color-ink-soft);
+  letter-spacing: -0.015em;
+  margin-left: 0.04em;
+}
+
+/* Opening brush-stroke tick — kake-jiku scroll mark before "Art" */
+.tick {
+  display: inline-block;
+  width: 0.55em;
+  height: 0.5px;
+  background: var(--color-ink);
+  opacity: 0.45;
+  vertical-align: middle;
+  margin-right: 0.32em;
+  margin-bottom: 0.28em;
+  transform: translateY(-0.12em);
+}
+
+/* Closing hanko — red seal that replaces the typographic period */
+.seal {
+  display: inline-block;
+  width: 0.32em;
+  height: 0.32em;
+  border-radius: 50%;
+  background: var(--color-mark);
+  margin-left: 0.06em;
+  vertical-align: baseline;
+  transform: translateY(-0.04em);
+  /* Subtle breathing — slow, almost imperceptible */
+  animation: sealBreathe 4.5s ease-in-out infinite;
+}
+
+@keyframes sealBreathe {
+  0%, 100% { transform: translateY(-0.04em) scale(1);    opacity: 1;    }
+  50%      { transform: translateY(-0.04em) scale(1.18); opacity: 0.88; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .seal { animation: none; }
 }
 
 .sub {
