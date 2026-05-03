@@ -1,9 +1,11 @@
 .svg {
-  /* Allow leader text to overflow viewBox if needed without clipping */
+  width: 100%;
+  height: 100%;
+  display: block;
   overflow: visible;
 }
 
-/* ── Anchor group ──────────────────────────────────── */
+/* ── Anchor groups ─────────────────────────────────── */
 .anchor {
   cursor: crosshair;
   outline: none;
@@ -11,88 +13,65 @@
 }
 
 .hitTarget {
-  /* invisible but receives pointer events */
   pointer-events: all;
 }
 
-/* ── Idle state (subtle visibility) ────────────────── */
+/* ── Idle state ───────────────────────────────────── */
 .dot {
-  opacity: 0.6;
+  opacity: 0.65;
   transition:
-    r 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+    r 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
     fill 0.25s ease,
     opacity 0.25s ease;
 }
 
-.leader {
-  opacity: 0;
-  stroke-dasharray: 60;
-  stroke-dashoffset: 60;
-  transition:
-    stroke-dashoffset 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
-    opacity 0.3s ease,
-    stroke 0.25s ease;
-}
-
-.terminator {
-  opacity: 0;
-  transition: opacity 0.3s ease 0.15s, fill 0.25s ease;
-}
-
 .numLabel {
-  opacity: 0;
-  letter-spacing: 0.15em;
+  opacity: 0.4;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  transition: opacity 0.3s ease 0.18s, fill 0.25s ease;
+  transition: opacity 0.3s ease, fill 0.25s ease;
 }
 
 .nameLabel {
-  opacity: 0;
+  opacity: 0.85;
   transition:
-    opacity 0.4s ease 0.22s,
-    transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) 0.22s,
+    opacity 0.3s ease,
+    transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
     fill 0.25s ease;
-  transform-origin: center;
-  transform: translateY(4px);
+  transform-origin: left center;
 }
 
-/* ── Faint reveal on first paint (hint of discoverability) ── */
-.anchor .dot {
-  opacity: 0.55;
-}
-
-/* ── Hover / focus state ───────────────────────────── */
+/* ── Hover / focus ─────────────────────────────────── */
 .anchorHover .dot {
   fill: var(--color-mark);
   opacity: 1;
 }
 
-.anchorHover .leader {
-  opacity: 0.65;
-  stroke-dashoffset: 0;
-  stroke: var(--color-mark);
-}
-
-.anchorHover .terminator {
-  opacity: 0.85;
-  fill: var(--color-mark);
-}
-
 .anchorHover .numLabel {
-  opacity: 0.55;
+  opacity: 0.7;
+  fill: var(--color-mark);
 }
 
 .anchorHover .nameLabel {
   opacity: 1;
-  transform: translateY(0);
+  fill: var(--color-ink);
+  transform: translateX(4px);
 }
 
 /* ── Other anchors dim when one is active ──────────── */
 .anchorDimmed .dot {
+  opacity: 0.22;
+}
+
+.anchorDimmed .nameLabel {
+  opacity: 0.35;
+}
+
+.anchorDimmed .numLabel {
   opacity: 0.18;
 }
 
-/* ── Keyboard focus ring ───────────────────────────── */
+/* ── Keyboard focus mirror hover ───────────────────── */
 .anchor:focus-visible .dot {
   fill: var(--color-mark);
   opacity: 1;
@@ -100,11 +79,10 @@
 
 .anchor:focus-visible .nameLabel {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateX(4px);
 }
 
-.anchor:focus-visible .leader {
-  opacity: 0.65;
-  stroke-dashoffset: 0;
-  stroke: var(--color-mark);
+.anchor:focus-visible .numLabel {
+  opacity: 0.7;
+  fill: var(--color-mark);
 }

@@ -1,59 +1,34 @@
-import { forwardRef, useState, useCallback } from 'react'
-import { motion } from 'framer-motion'
+import { useState, useCallback } from 'react'
 import styles from './HeroComposition.module.css'
 
-/* Square viewBox — composition reads as a single centred mark */
-const VB = 600
-const C = VB / 2 // 300, the center
+/* Right-column vertical-rail composition.
+ *
+ * Conceived as a Japanese haiku in spatial form:
+ *  - One vertical hairline (the tatami edge)
+ *  - Four small dots evenly stacked on the line — each is a wayfinder
+ *  - A single small red mark (hanko / seal) sits beside the rail at the
+ *    visual centre, connected by a tiny tick
+ *
+ * No grid, no axes, no large red circle. Negative space is the protagonist.
+ */
 
-/* Two construction lines — horizontal & vertical axes through center */
-export const CONSTRUCTION_LINES = [
-  { x1: 0, y1: C, x2: VB, y2: C, baseOpacity: 0.18, id: 'h0' },
-  { x1: C, y1: 0, x2: C, y2: VB, baseOpacity: 0.18, id: 'v0' },
+const VB_W = 320
+const VB_H = 720
+const RAIL_X = 84
+const RAIL_TOP = 90
+const RAIL_BOTTOM = 630
+
+const NAV = [
+  { id: 'work',     y: 165, num: '01', label: 'Work' },
+  { id: 'services', y: 295, num: '02', label: 'Services' },
+  { id: 'about',    y: 425, num: '03', label: 'About' },
+  { id: 'contact',  y: 555, num: '04', label: 'Contact' },
 ]
 
-/* Four dots — wayfinders to home-page sections.
- * Brought inward from the corners so they orbit the central red mark.
- * Order: clockwise from top-left = Work / Services / About / Contact. */
-const DOT_OFFSET = 170 // distance from center to each dot
-
-export const SCATTERED_DOTS = [
-  {
-    id: 'dot0',
-    cx: C - DOT_OFFSET, cy: C - DOT_OFFSET, baseR: 3.4,
-    target: 'work', num: '01', label: 'Work',
-    leader: { x: C - DOT_OFFSET, y: C - DOT_OFFSET - 38 },
-    text:   { x: C - DOT_OFFSET, y: C - DOT_OFFSET - 50, anchor: 'middle' },
-    align:  'top',
-  },
-  {
-    id: 'dot1',
-    cx: C + DOT_OFFSET, cy: C - DOT_OFFSET, baseR: 3.4,
-    target: 'services', num: '02', label: 'Services',
-    leader: { x: C + DOT_OFFSET, y: C - DOT_OFFSET - 38 },
-    text:   { x: C + DOT_OFFSET, y: C - DOT_OFFSET - 50, anchor: 'middle' },
-    align:  'top',
-  },
-  {
-    id: 'dot2',
-    cx: C + DOT_OFFSET, cy: C + DOT_OFFSET, baseR: 3.4,
-    target: 'about', num: '03', label: 'About',
-    leader: { x: C + DOT_OFFSET, y: C + DOT_OFFSET + 38 },
-    text:   { x: C + DOT_OFFSET, y: C + DOT_OFFSET + 50, anchor: 'middle' },
-    align:  'bottom',
-  },
-  {
-    id: 'dot3',
-    cx: C - DOT_OFFSET, cy: C + DOT_OFFSET, baseR: 3.4,
-    target: 'contact', num: '04', label: 'Contact',
-    leader: { x: C - DOT_OFFSET, y: C + DOT_OFFSET + 38 },
-    text:   { x: C - DOT_OFFSET, y: C + DOT_OFFSET + 50, anchor: 'middle' },
-    align:  'bottom',
-  },
-]
-
-/* The central red mark — non-interactive, the studio's hanko */
-export const RED_CIRCLE_BASE = { cx: C, cy: C, r: 44 }
+/* Hanko — small red seal, off the rail to the right, at the visual centre */
+const HANKO = { x: 218, y: 360, r: 11 }
+const TICK_FROM_X = RAIL_X
+const TICK_TO_X = HANKO.x - HANKO.r - 6
 
 function smoothScrollTo(id) {
   const el = document.getElementById(id)
@@ -61,10 +36,7 @@ function smoothScrollTo(id) {
   el.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
-const HeroComposition = forwardRef(function HeroComposition(
-  { circleSpringX, circleSpringY },
-  svgRef,
-) {
+export default function HeroComposition() {
   const [hovered, setHovered] = useState(null)
 
   const onActivate = useCallback((target) => {
@@ -86,32 +58,46 @@ const HeroComposition = forwardRef(function HeroComposition(
 
   return (
     <svg
-      ref={svgRef}
-      viewBox={`0 0 ${VB} ${VB}`}
+      viewBox={`0 0 ${VB_W} ${VB_H}`}
       xmlns="http://www.w3.org/2000/svg"
       role="navigation"
       aria-label="Page sections"
-      style={{ width: '100%', height: '100%', display: 'block' }}
       preserveAspectRatio="xMidYMid meet"
       className={styles.svg}
     >
-      {/* Axis lines */}
-      <g fill="none" stroke="var(--color-ink)" strokeWidth="0.5">
-        {CONSTRUCTION_LINES.map((l) => (
-          <line
-            key={l.id}
-            data-line-id={l.id}
-            x1={l.x1}
-            y1={l.y1}
-            x2={l.x2}
-            y2={l.y2}
-            opacity={l.baseOpacity}
-          />
-        ))}
-      </g>
+      {/* Vertical rail — the tatami edge */}
+      <line
+        x1={RAIL_X}
+        y1={RAIL_TOP}
+        x2={RAIL_X}
+        y2={RAIL_BOTTOM}
+        stroke="var(--color-ink)"
+        strokeWidth="0.5"
+        opacity="0.5"
+      />
 
-      {/* Four nav anchors */}
-      {SCATTERED_DOTS.map((d) => {
+      {/* Tiny tick joining rail to the hanko */}
+      <line
+        x1={TICK_FROM_X}
+        y1={HANKO.y}
+        x2={TICK_TO_X}
+        y2={HANKO.y}
+        stroke="var(--color-ink)"
+        strokeWidth="0.5"
+        opacity="0.35"
+      />
+
+      {/* The hanko / seal — single red mark, the studio's signature */}
+      <circle
+        cx={HANKO.x}
+        cy={HANKO.y}
+        r={HANKO.r}
+        fill="var(--color-mark)"
+        aria-hidden="true"
+      />
+
+      {/* Four nav anchors, stacked on the rail */}
+      {NAV.map((d) => {
         const isHover = hovered === d.id
         const isDimmed = hovered !== null && !isHover
         return (
@@ -121,42 +107,40 @@ const HeroComposition = forwardRef(function HeroComposition(
             role="link"
             tabIndex={0}
             aria-label={`${d.num} — Go to ${d.label} section`}
-            onClick={() => onActivate(d.target)}
-            onKeyDown={(e) => onKeyDown(e, d.target)}
+            onClick={() => onActivate(d.id)}
+            onKeyDown={(e) => onKeyDown(e, d.id)}
             onMouseEnter={() => setHovered(d.id)}
             onMouseLeave={() => setHovered(null)}
             onFocus={() => setHovered(d.id)}
             onBlur={() => setHovered(null)}
           >
             {/* Generous invisible hit target */}
-            <circle
-              cx={d.cx}
-              cy={d.cy}
-              r={32}
+            <rect
+              x={RAIL_X - 30}
+              y={d.y - 22}
+              width={260}
+              height={44}
               fill="transparent"
               className={styles.hitTarget}
             />
 
-            {/* Leader hairline from dot to label */}
-            <line
-              className={styles.leader}
-              x1={d.cx}
-              y1={d.cy}
-              x2={d.leader.x}
-              y2={d.leader.y}
-              stroke="var(--color-ink)"
-              strokeWidth="0.5"
+            {/* The dot, pinned to the rail */}
+            <circle
+              className={styles.dot}
+              cx={RAIL_X}
+              cy={d.y}
+              r={3.2}
+              fill="var(--color-ink)"
             />
 
-            {/* Number — small mono */}
+            {/* Number — small mono caps */}
             <text
               className={styles.numLabel}
-              x={d.text.x}
-              y={d.text.y}
-              textAnchor={d.text.anchor}
-              dy={d.align === 'bottom' ? '0.7em' : '-0.4em'}
+              x={RAIL_X + 22}
+              y={d.y}
+              dy="0.36em"
               fontFamily="var(--font-mono)"
-              fontSize="7"
+              fontSize="8"
               fill="var(--color-ink)"
             >
               {d.num}
@@ -165,42 +149,19 @@ const HeroComposition = forwardRef(function HeroComposition(
             {/* Section name — serif italic */}
             <text
               className={styles.nameLabel}
-              x={d.text.x}
-              y={d.text.y}
-              textAnchor={d.text.anchor}
-              dy={d.align === 'bottom' ? '2em' : '-1.7em'}
+              x={RAIL_X + 56}
+              y={d.y}
+              dy="0.32em"
               fontFamily="var(--font-serif)"
               fontStyle="italic"
-              fontSize="15"
+              fontSize="17"
               fill="var(--color-ink)"
             >
               {d.label}
             </text>
-
-            {/* The dot */}
-            <circle
-              data-dot-id={d.id}
-              className={styles.dot}
-              cx={d.cx}
-              cy={d.cy}
-              r={d.baseR}
-              fill="var(--color-ink)"
-            />
           </g>
         )
       })}
-
-      {/* Central red mark — drifts on cursor, non-interactive */}
-      <motion.circle
-        cx={RED_CIRCLE_BASE.cx}
-        cy={RED_CIRCLE_BASE.cy}
-        r={RED_CIRCLE_BASE.r}
-        fill="var(--color-mark)"
-        style={{ x: circleSpringX, y: circleSpringY }}
-        aria-hidden="true"
-      />
     </svg>
   )
-})
-
-export default HeroComposition
+}

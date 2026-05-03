@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 import { fadeUp, staggerContainer } from '@/utils/motion'
-import HeroCanvas from './HeroCanvas'
+import HeroComposition from './HeroComposition'
 import SectionLabel from '@/components/ui/SectionLabel'
 import Button from '@/components/ui/Button'
 import Hairline from '@/components/ui/Hairline'
@@ -11,7 +11,7 @@ import styles from './Hero.module.css'
 
 export default function Hero() {
   const isDesktop = useMediaQuery('(min-width: 1024px)')
-  const reduced   = useReducedMotion()
+  const reduced = useReducedMotion()
 
   const motionProps = reduced
     ? {}
@@ -26,13 +26,15 @@ export default function Hero() {
             <SectionLabel variant="before">Visual Studio · Amsterdam</SectionLabel>
           </motion.div>
 
+          {/* Haiku-style 3-line headline with cascading indent */}
           <motion.h1
             className={styles.headline}
             variants={reduced ? {} : fadeUp}
             custom={1}
           >
-            Art that <em>tells</em><br />
-            stories.
+            <span className={styles.lineA}>Art</span>
+            <span className={styles.lineB}>that <em>tells</em></span>
+            <span className={styles.lineC}>stories.</span>
           </motion.h1>
 
           <motion.p
@@ -40,9 +42,8 @@ export default function Hero() {
             variants={reduced ? {} : fadeUp}
             custom={2}
           >
-            Visual art, content creation, and content strategy
-            for organisations that believe in the power of
-            considered communication.
+            Visual art, content, and strategy<br />
+            for considered communication.
           </motion.p>
 
           <motion.div
@@ -56,13 +57,12 @@ export default function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* ── Vertical hairline ── */}
+        {/* ── Vertical hairline divider ── */}
         {isDesktop && <div className={styles.divider} aria-hidden="true" />}
 
-        {/* ── Right: interactive composition ── */}
+        {/* ── Right: vertical-rail composition ── */}
         <div className={styles.right}>
-          {!isDesktop && <div className={styles.mobileComposition}><HeroCanvas /></div>}
-          {isDesktop  && <HeroCanvas />}
+          <HeroComposition />
         </div>
       </div>
       <Hairline />

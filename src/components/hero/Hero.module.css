@@ -2,22 +2,22 @@
   width: 100%;
 }
 
-/* 50/50 split — full viewport minus nav */
+/* Asymmetric split — left dominates (text), right is the calm rail */
 .grid {
   display: grid;
-  grid-template-columns: 1fr 0.5px 1fr;
+  grid-template-columns: 1.4fr 0.5px 1fr;
   height: calc(100svh - var(--nav-height));
-  min-height: 600px;
+  min-height: 620px;
 }
 
-/* Left half — vertically + content-sized centered */
+/* Left half — vertically centred text block */
 .left {
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: var(--space-8) var(--space-8) var(--space-8) var(--content-padding);
-  gap: var(--space-5);
-  max-width: 640px;
+  gap: var(--space-6);
+  max-width: 720px;
   width: 100%;
   justify-self: end;
 }
@@ -25,27 +25,43 @@
 /* Vertical hairline divider */
 .divider {
   background: var(--color-ink);
-  opacity: 1;
+  opacity: 0.4;
   width: 0.5px;
   align-self: stretch;
 }
 
-/* Right half */
+/* Right half — holds the composition */
 .right {
   background: var(--color-paper);
   overflow: hidden;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-block: var(--space-8);
+  padding-inline: var(--space-8) var(--space-7);
 }
 
+/* ── Headline as a 3-line haiku ────────────────────── */
 .headline {
   font-family: var(--font-serif);
-  font-size: clamp(2.6rem, 5.4vw, 4.8rem);
+  font-size: clamp(2.4rem, 5vw, 4.4rem);
   font-weight: 400;
   line-height: 1.0;
   letter-spacing: -0.025em;
   color: var(--color-ink);
-  max-width: 14ch;
+  max-width: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.08em;
 }
+
+.headline span { display: block; }
+
+/* Cascading indent — each line steps further right, like haiku breath */
+.lineA { padding-left: 0; }
+.lineB { padding-left: 1.6em; }
+.lineC { padding-left: 3.2em; }
 
 .headline em {
   font-style: italic;
@@ -55,7 +71,7 @@
 .sub {
   font-family: var(--font-mono);
   font-size: 0.78rem;
-  line-height: 1.75;
+  line-height: 1.85;
   color: var(--color-ink);
   opacity: 0.72;
   max-width: 36ch;
@@ -65,7 +81,7 @@
   margin-top: var(--space-3);
 }
 
-/* Mobile: single column, composition above text */
+/* ── Mobile ───────────────────────────────────────── */
 @media (max-width: 1024px) {
   .grid {
     grid-template-columns: 1fr;
@@ -75,19 +91,24 @@
 
   .left {
     padding: var(--space-7) var(--space-5);
-    order: 2;
+    order: 1;
     gap: var(--space-5);
     max-width: none;
     justify-self: stretch;
   }
 
   .right {
-    order: 1;
+    order: 2;
+    height: 420px;
+    padding: var(--space-6) var(--space-5);
+    border-top: var(--hairline);
   }
 
-  .mobileComposition {
-    height: 380px;
-    width: 100%;
-    overflow: hidden;
-  }
+  .lineA { padding-left: 0; }
+  .lineB { padding-left: 1em; }
+  .lineC { padding-left: 2em; }
+}
+
+@media (max-width: 640px) {
+  .right { height: 360px; }
 }
