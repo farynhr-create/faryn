@@ -88,14 +88,27 @@
   transform: translateY(-0.12em);
 }
 
-/* Closing hanko — red seal that replaces the typographic period */
-.seal {
+/* Letter-dot — red disc that replaces the lowercase "o" in stories.
+   Sized to match the x-height of the surrounding glyphs. */
+.letterDot {
   display: inline-block;
-  width: 0.32em;
-  height: 0.32em;
+  width: 0.5em;
+  height: 0.5em;
   border-radius: 50%;
   background: var(--color-mark);
-  margin-left: 0.06em;
+  vertical-align: baseline;
+  margin: 0 0.04em;
+  transform: translateY(0.04em);
+}
+
+/* Closing hanko — small red seal that replaces the typographic period */
+.seal {
+  display: inline-block;
+  width: 0.3em;
+  height: 0.3em;
+  border-radius: 50%;
+  background: var(--color-mark);
+  margin-left: 0.08em;
   vertical-align: baseline;
   transform: translateY(-0.04em);
   /* Subtle breathing — slow, almost imperceptible */

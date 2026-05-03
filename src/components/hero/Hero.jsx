@@ -27,20 +27,23 @@ export default function Hero() {
           </motion.div>
 
           {/* Haiku-style 3-line headline with cascading indent.
-              Brushstroke tick opens the verse, hanko seal closes it. */}
+              Brushstroke tick opens the verse; the "o" in stories
+              becomes a red dot — the only red mark in the line. */}
           <motion.h1
             className={styles.headline}
+            aria-label="Art that tells stories"
             variants={reduced ? {} : fadeUp}
             custom={1}
           >
             <span className={styles.lineA}>
               <span className={styles.tick} aria-hidden="true" />
-              Art
+              <span aria-hidden="true">Art</span>
             </span>
-            <span className={styles.lineB}>that <em>tells</em></span>
-            <span className={styles.lineC}>
-              stories
-              <span className={styles.seal} aria-hidden="true" />
+            <span className={styles.lineB} aria-hidden="true">
+              that <em>tells</em>
+            </span>
+            <span className={styles.lineC} aria-hidden="true">
+              st<span className={styles.letterDot} />ries
             </span>
           </motion.h1>
 
