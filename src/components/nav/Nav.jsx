@@ -20,7 +20,12 @@ export default function Nav() {
     <>
       <header className={styles.nav} role="banner">
         <div className={styles.inner}>
-          <NavLink to="/" className={styles.wordmark} aria-label="Faryn Studio — home">
+          <NavLink
+            to="/"
+            className={styles.wordmark}
+            aria-label="Faryn Studio — home"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          >
             <LogoLockup variant="stacked" width={140} ariaLabel="" />
           </NavLink>
 

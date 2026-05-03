@@ -9,7 +9,12 @@ export default function Footer() {
       <Hairline />
       <div className={styles.inner}>
         <div className={styles.brand}>
-          <Link to="/" className={styles.wordmark} aria-label="Faryn Studio — home">
+          <Link
+            to="/"
+            className={styles.wordmark}
+            aria-label="Faryn Studio — home"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          >
             <LogoLockup variant="inline" width={200} ariaLabel="" />
           </Link>
         </div>

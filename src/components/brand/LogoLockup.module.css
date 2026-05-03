@@ -41,9 +41,10 @@
 }
 
 /* ── Hover bloom ─────────────────────────────────────
- * The whole lockup acts as the hover surface. Junction dots scale &
- * brighten, red marks pulse with a red glow, line strokes thicken.
- * A subtle stagger waves the bloom across the five letters.
+ * On hover, each letter ignites in sequence: lines pulse from dim/thin
+ * to bold with an overshoot before settling, dots pop with a slight
+ * back-out cubic, and red marks emit a red drop-shadow glow.
+ * The wave staggers left-to-right across the five letters.
  */
 .lockup [data-junction] {
   transition:
@@ -55,46 +56,92 @@
 
 .lockup line {
   transition:
-    stroke-width 0.35s ease,
-    opacity      0.35s ease;
-}
-
-.lockup:hover [data-junction="ink"] {
-  transform: scale(1.6);
-  filter: drop-shadow(0 0 5px rgba(10, 10, 10, 0.55));
-}
-
-.lockup:hover [data-junction="red"] {
-  transform: scale(1.95);
-  filter:
-    drop-shadow(0 0 7px var(--color-mark))
-    drop-shadow(0 0 18px rgba(212, 43, 43, 0.7));
-}
-
-.lockup:hover line {
-  stroke-width: 10.5;
+    stroke-width 0.4s ease,
+    opacity      0.4s ease,
+    filter       0.4s ease;
 }
 
 .lockup:hover .studioLabel {
   opacity: 1;
 }
 
-/* Bloom wave — each letter lights ~60ms after the previous */
-.lockup:hover [data-letter="0"] [data-junction] { transition-delay: 0ms; }
-.lockup:hover [data-letter="1"] [data-junction] { transition-delay: 60ms; }
-.lockup:hover [data-letter="2"] [data-junction] { transition-delay: 120ms; }
-.lockup:hover [data-letter="3"] [data-junction] { transition-delay: 180ms; }
-.lockup:hover [data-letter="4"] [data-junction] { transition-delay: 240ms; }
+/* Lines: dim → overshoot bold → settle */
+@keyframes lineWave {
+  0%   { opacity: 0.2;  stroke-width: 4.5; }
+  20%  { opacity: 0.45; stroke-width: 7;   }
+  45%  { opacity: 1;    stroke-width: 13;
+         filter: drop-shadow(0 0 4px rgba(10, 10, 10, 0.45)); }
+  100% { opacity: 1;    stroke-width: 11.5;
+         filter: drop-shadow(0 0 2px rgba(10, 10, 10, 0.25)); }
+}
 
-/* Reduced motion — keep the brighten, drop the scale & wave */
+/* Ink junction dots: pop with back-out */
+@keyframes inkDotPop {
+  0%   { transform: scale(0.7);
+         filter: drop-shadow(0 0 0 transparent); }
+  45%  { transform: scale(1.85);
+         filter: drop-shadow(0 0 7px rgba(10, 10, 10, 0.6)); }
+  100% { transform: scale(1.5);
+         filter: drop-shadow(0 0 5px rgba(10, 10, 10, 0.45))
+                 drop-shadow(0 0 12px rgba(10, 10, 10, 0.25)); }
+}
+
+/* Red marks: pop with a layered red glow */
+@keyframes redDotPop {
+  0%   { transform: scale(0.7);
+         filter: drop-shadow(0 0 0 transparent); }
+  45%  { transform: scale(2.2);
+         filter:
+           drop-shadow(0 0 12px var(--color-mark))
+           drop-shadow(0 0 26px rgba(212, 43, 43, 0.85))
+           drop-shadow(0 0 50px rgba(212, 43, 43, 0.45)); }
+  100% { transform: scale(1.85);
+         filter:
+           drop-shadow(0 0 9px var(--color-mark))
+           drop-shadow(0 0 20px rgba(212, 43, 43, 0.75))
+           drop-shadow(0 0 38px rgba(212, 43, 43, 0.4)); }
+}
+
+/* Apply animations on hover */
+.lockup:hover line {
+  animation: lineWave 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.lockup:hover [data-junction="ink"] {
+  animation: inkDotPop 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.lockup:hover [data-junction="red"] {
+  animation: redDotPop 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Letter stagger — each ignites ~90ms after the previous */
+.lockup:hover [data-letter="0"] line,
+.lockup:hover [data-letter="0"] [data-junction] { animation-delay: 0ms; }
+.lockup:hover [data-letter="1"] line,
+.lockup:hover [data-letter="1"] [data-junction] { animation-delay: 90ms; }
+.lockup:hover [data-letter="2"] line,
+.lockup:hover [data-letter="2"] [data-junction] { animation-delay: 180ms; }
+.lockup:hover [data-letter="3"] line,
+.lockup:hover [data-letter="3"] [data-junction] { animation-delay: 270ms; }
+.lockup:hover [data-letter="4"] line,
+.lockup:hover [data-letter="4"] [data-junction] { animation-delay: 360ms; }
+
+/* Reduced motion — drop the wave, keep a calm brighten */
 @media (prefers-reduced-motion: reduce) {
-  .lockup:hover [data-junction="ink"],
+  .lockup:hover line,
+  .lockup:hover [data-junction] {
+    animation: none;
+  }
+  .lockup:hover [data-junction="ink"] {
+    transform: scale(1.4);
+    filter: drop-shadow(0 0 4px rgba(10, 10, 10, 0.4));
+  }
   .lockup:hover [data-junction="red"] {
-    transform: none;
+    transform: scale(1.6);
+    filter: drop-shadow(0 0 8px var(--color-mark));
   }
-  .lockup:hover [data-letter] [data-junction] {
-    transition-delay: 0ms;
-  }
+  .lockup:hover line { stroke-width: 9.5; }
 }
 
 /* Responsive — inline collapses to stacked on small screens */
