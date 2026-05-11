@@ -4,6 +4,8 @@ import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 import { fadeUp, staggerContainer } from '@/utils/motion'
 import HeroComposition from './HeroComposition'
+import ZenLeaves from './ZenLeaves'
+import LetterDot from './LetterDot'
 import SectionLabel from '@/components/ui/SectionLabel'
 import Button from '@/components/ui/Button'
 import Hairline from '@/components/ui/Hairline'
@@ -22,6 +24,9 @@ export default function Hero() {
       <div className={styles.grid}>
         {/* ── Left: text content ── */}
         <motion.div className={styles.left} {...motionProps}>
+          {/* Sumi-e bamboo leaves drift in behind the haiku as an ink backdrop */}
+          <ZenLeaves />
+
           <motion.div variants={reduced ? {} : fadeUp} custom={0}>
             <SectionLabel variant="before">Visual Studio · Amsterdam</SectionLabel>
           </motion.div>
@@ -43,7 +48,7 @@ export default function Hero() {
               that <em>tells</em>
             </span>
             <span className={styles.lineC} aria-hidden="true">
-              st<span className={styles.letterDot} />ries
+              ST<LetterDot />RIES
             </span>
           </motion.h1>
 
@@ -52,8 +57,8 @@ export default function Hero() {
             variants={reduced ? {} : fadeUp}
             custom={2}
           >
-            Visual art, content, and strategy<br />
-            for considered communication.
+            Drawings, paintings, and digital design<br />
+            from an independent practice.
           </motion.p>
 
           <motion.div

@@ -1,6 +1,145 @@
 .logo {
   display: block;
   height: auto;
-  /* Logo inherits its color from the `ink` prop or CSS variables.
-     The component itself stays neutral and lets parents control sizing/spacing. */
+  overflow: visible; /* let glow bleed past the viewBox */
+}
+
+/* ────────────────────────────────────────────────────────────
+ * Entrance choreography
+ *
+ * Timeline (ms from page load):
+ *   000–490  dots pop in left-to-right (90ms stagger, 550ms each)
+ *   200–800  horizontal connector draws across all five dots
+ *   400–1080 vertical drop-lines descend from each dot (80ms stagger)
+ *   480–1500 letters fade up beneath their dots (80ms stagger)
+ *   1300–1900 connector + drops fade out
+ *   1500–3100 red dot gives one quiet glow pulse
+ *
+ * After ~1.9s the logo settles into its calm minimal rest state:
+ *   five dots above a serif FARYN, nothing else.
+ * ──────────────────────────────────────────────────────────── */
+
+/* ── Dots ── */
+@keyframes dotEnter {
+  0%   { opacity: 0; transform: translateY(-4px) scale(0.4); }
+  60%  { opacity: 1; transform: translateY(0) scale(1.25); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes redDotPulse {
+  0%, 100% { filter: drop-shadow(0 0 0 transparent); }
+  50% {
+    filter:
+      drop-shadow(0 0 4px var(--color-mark, #d42b2b))
+      drop-shadow(0 0 12px rgba(212, 43, 43, 0.55));
+  }
+}
+
+.dot {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: dotEnter 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.dot[data-i="0"] { animation-delay: 0ms; }
+.dot[data-i="1"] { animation-delay: 90ms; }
+.dot[data-i="2"] { animation-delay: 180ms; }
+.dot[data-i="3"] { animation-delay: 270ms; }
+.dot[data-i="4"] { animation-delay: 360ms; }
+
+.dot[data-dot="red"] {
+  animation:
+    dotEnter 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+    redDotPulse 1.6s ease-in-out 1.5s 1;
+}
+
+/* ── Horizontal connector across the dot row ──
+ * Draws in left → right, holds, then fades out cleanly.
+ * Drawn via strokeDashoffset (inline style sets the dasharray).
+ */
+@keyframes connectorDraw {
+  0%   { stroke-dashoffset: 240; opacity: 0; }
+  10%  { opacity: 1; }
+  60%  { stroke-dashoffset: 0; opacity: 1; }
+  85%  { stroke-dashoffset: 0; opacity: 0.6; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+
+.connector {
+  opacity: 0;
+  animation: connectorDraw 1.7s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s forwards;
+}
+
+/* ── Vertical drop hairlines from each dot toward its letter ──
+ * Descends, holds while the letter rises into place, then fades.
+ */
+@keyframes dropDraw {
+  0%   { stroke-dashoffset: 32; opacity: 0; }
+  20%  { opacity: 1; }
+  45%  { stroke-dashoffset: 0; opacity: 1; }
+  80%  { stroke-dashoffset: 0; opacity: 0.6; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+
+.drop {
+  opacity: 0;
+  animation: dropDraw 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.drop[data-drop="0"] { animation-delay: 400ms; }
+.drop[data-drop="1"] { animation-delay: 480ms; }
+.drop[data-drop="2"] { animation-delay: 560ms; }
+.drop[data-drop="3"] { animation-delay: 640ms; }
+.drop[data-drop="4"] { animation-delay: 720ms; }
+
+/* ── Letters ── */
+@keyframes letterRise {
+  0%   { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.letter {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  opacity: 0;
+  animation: letterRise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.letter[data-letter="0"] { animation-delay: 480ms; }
+.letter[data-letter="1"] { animation-delay: 560ms; }
+.letter[data-letter="2"] { animation-delay: 640ms; }
+.letter[data-letter="3"] { animation-delay: 720ms; }
+.letter[data-letter="4"] { animation-delay: 800ms; }
+
+/* ── STUDIO caption (when integrated inside the SVG via showStudio) ── */
+@keyframes studioRise {
+  0%   { opacity: 0;   transform: translateY(6px); }
+  100% { opacity: 0.6; transform: translateY(0); }
+}
+
+.studio {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: studioRise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) 950ms forwards;
+}
+
+/* ── Reduced motion — drop the choreography, just show the rest state ── */
+@media (prefers-reduced-motion: reduce) {
+  .dot,
+  .letter,
+  .studio,
+  .connector,
+  .drop {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+    stroke-dashoffset: 0;
+  }
+  .studio { opacity: 0.6; }
+  .connector,
+  .drop {
+    opacity: 0; /* stay hidden — never show construction lines */
+  }
 }

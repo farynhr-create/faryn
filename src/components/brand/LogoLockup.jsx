@@ -32,12 +32,25 @@ export default function LogoLockup({
     className,
   ].filter(Boolean).join(' ');
 
+  // Stacked variant integrates STUDIO inside the SVG (sits directly
+  // beneath FARYN with precise alignment to the wordmark). Inline
+  // variant renders an italic "studio" beside the wordmark separately.
+  const isStacked = variant === 'stacked';
+
   return (
     <span className={wrapperClass} aria-label={ariaLabel} role="img">
-      <Logo width={width} color={color} redAccent={redAccent} ariaLabel="" />
-      <span className={styles.studioLabel} aria-hidden="true">
-        {variant === 'stacked' ? 'Studio' : 'studio'}
-      </span>
+      <Logo
+        width={width}
+        color={color}
+        redAccent={redAccent}
+        ariaLabel=""
+        showStudio={isStacked}
+      />
+      {!isStacked && (
+        <span className={styles.studioLabel} aria-hidden="true">
+          studio
+        </span>
+      )}
     </span>
   );
 }

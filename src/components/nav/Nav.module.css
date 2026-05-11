@@ -7,6 +7,11 @@
   height: var(--nav-height);
   background: var(--color-paper);
   border-bottom: var(--hairline);
+  /* Subtle depth — a faint shadow below the nav so it lifts off the
+     page rather than sitting flat against the hero. */
+  box-shadow:
+    0 1px 0 rgba(10, 10, 10, 0.04),
+    0 6px 18px -10px rgba(10, 10, 10, 0.08);
 }
 
 .inner {
@@ -33,19 +38,41 @@
 }
 
 .link {
+  position: relative;
   font-family: var(--font-mono);
   font-size: var(--text-micro);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-ink);
-  opacity: 0.55;
+  opacity: 0.78;
   text-decoration: none;
-  transition: opacity 0.2s ease;
+  /* Whisper of depth — a single-pixel ink shadow beneath the caps
+     adds presence without becoming a printed-look effect. */
+  text-shadow: 0 1px 0 rgba(10, 10, 10, 0.06);
+  transition: opacity 0.25s ease, color 0.25s ease;
 }
 
-.link:hover,
+.link:hover {
+  opacity: 1;
+  color: var(--color-ink);
+}
+
 .active {
   opacity: 1;
+  color: var(--color-ink);
+}
+
+/* Active route — one red mark beneath, brand-continuous */
+.active::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-mark);
+  transform: translateX(-50%);
 }
 
 /* Burger — two-line refined version */

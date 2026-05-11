@@ -12,6 +12,7 @@
 
 /* Left half — vertically centred text block */
 .left {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -86,19 +87,6 @@
   margin-right: 0.32em;
   margin-bottom: 0.28em;
   transform: translateY(-0.12em);
-}
-
-/* Letter-dot — red disc that replaces the lowercase "o" in stories.
-   Sized to match the x-height of the surrounding glyphs. */
-.letterDot {
-  display: inline-block;
-  width: 0.5em;
-  height: 0.5em;
-  border-radius: 50%;
-  background: var(--color-mark);
-  vertical-align: baseline;
-  margin: 0 0.04em;
-  transform: translateY(0.04em);
 }
 
 /* Closing hanko — small red seal that replaces the typographic period */

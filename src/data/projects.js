@@ -1,147 +1,80 @@
 export const projects = [
   {
-    slug: 'the-weight-of-paper',
-    title: 'The Weight of Paper',
-    subtitle: 'A study in materiality and mark-making',
-    category: 'visual-art',
-    filterLabel: 'Visual Art',
-    year: '2024',
+    slug: 'drawings',
+    title: 'Drawings',
+    subtitle: 'Charcoal and graphite — figure studies, gesture, atmosphere',
+    category: 'drawings',
+    filterLabel: 'Drawings',
+    year: '2018 — present',
     role: 'Artist',
     client: 'Self-initiated',
-    medium: 'Ink and graphite on 300gsm paper',
-    thumbnail: 'geometric',
+    medium: 'Charcoal and graphite on paper',
+    thumbnail: '/images/projects/drawings/drawing-01.jpg',
     context: [
-      'This series grew from a decade of keeping handwritten notes — a practice of recording ideas in their most elemental form. Each sheet in the series documents not just a mark, but the conditions under which it was made.',
-      'The work asks what happens when the mark-making process itself becomes the subject: each piece documents the pressure of a hand against a surface, the drag of graphite, the pause before a line begins.',
+      'An ongoing practice of drawing from observation and memory. The work moves between fast gestural studies — captured in a single sitting — and more sustained atmospheric pieces built up in passes over hours.',
+      'Each sheet is a record of attention: where the eye rested, where the hand hesitated, where decision compressed into a single mark.',
     ],
     thinking: [
-      'Weight here is both physical and conceptual. The physical weight of a well-made sheet of paper. The conceptual weight of choosing which marks to keep and which to abandon.',
-      'Working without erasure forced decisions that would normally be delayed indefinitely. The result is a record of certainty and uncertainty in equal measure — neither polished nor accidental.',
+      'The figure work is about weight and balance — finding the pose in as few marks as possible, then stopping. Adding more would be tidying.',
+      'The interior is a different register entirely: an inhabited space drawn so the light, not the architecture, becomes the subject.',
     ],
     outcome: {
-      description:
-        'Eight works on paper shown in a group exhibition at Galerie Bart, Amsterdam, 2024. The series was acquired in full by a private collector.',
+      description: null,
       metrics: null,
     },
+    gallery: [
+      { src: '/images/projects/drawings/drawing-01.jpg', caption: 'Ballerina, back — charcoal, 2018' },
+      { src: '/images/projects/drawings/drawing-02.jpg', caption: 'Standing figure, reaching — charcoal' },
+      { src: '/images/projects/drawings/drawing-03.jpg', caption: 'Figure in motion — charcoal study' },
+      { src: '/images/projects/drawings/drawing-04.jpg', caption: 'Draped figure, walking — charcoal' },
+      { src: '/images/projects/drawings/drawing-05.jpg', caption: 'Interior — open doors, charcoal and conté' },
+    ],
   },
   {
-    slug: 'voice-architecture',
-    title: 'Voice Architecture',
-    subtitle: 'Content strategy for an independent cultural institution',
-    category: 'strategy',
-    filterLabel: 'Strategy',
-    year: '2024',
-    role: 'Content Strategist',
-    client: 'EYE Film Institute',
-    medium: 'Strategy, editorial frameworks, copywriting',
-    thumbnail: 'typographic',
+    slug: 'paintings',
+    title: 'Paintings',
+    subtitle: 'Oil and acrylic — portraits and studies',
+    category: 'paintings',
+    filterLabel: 'Paintings',
+    year: '2020 — present',
+    role: 'Artist',
+    client: 'Self-initiated',
+    medium: 'Oil and acrylic on canvas',
+    thumbnail: '/images/projects/paintings/painting-01.jpg',
     context: [
-      'EYE needed to reconcile its identity as both a museum and a living archive — an institution that preserves cinema history while actively engaging contemporary audiences who encounter it first on a phone screen.',
-      'The project began with a full audit of three years of published content across all channels, mapping where the voice fragmented and where it held together under pressure.',
+      'A body of work in oil and acrylic — portraits, figure studies, and small abstracts — built around restrained palettes and decisive brushwork.',
+      'The paintings sit in dialogue with the drawings: where the drawings are about marking, the paintings are about colour temperature and the weight of a single, considered stroke.',
     ],
     thinking: [
-      'The solution was not a voice guide — those get filed and forgotten. Instead: an editorial decision tree, a set of questions writers ask themselves before publishing, not rules about adjectives.',
-      'The framework distinguishes between three modes: Archive (informing), Event (inviting), Perspective (provoking). Each has its own register, and writers choose based on intent, not channel.',
+      'Most works are completed in two or three sittings. Wet-into-wet handling forces commitment; the painting either resolves quickly or gets scraped back to ground.',
+      'Backgrounds stay open. The subject is the head, the hand, or the gesture — everything around it is paper-thin atmosphere.',
     ],
     outcome: {
-      description:
-        'Delivered as an internal handbook, an onboarding workshop series, and a living editorial template library maintained by the in-house team.',
-      metrics: [
-        { value: '+184%', label: 'organic reach' },
-        { value: '12 weeks', label: 'delivery' },
-        { value: '3 modes', label: 'editorial voice' },
-      ],
-    },
-  },
-  {
-    slug: 'field-notes',
-    title: 'Field Notes',
-    subtitle: 'Visual content series for a Dutch agricultural cooperative',
-    category: 'content',
-    filterLabel: 'Content',
-    year: '2023',
-    role: 'Art Director & Content Creator',
-    client: 'Confidential',
-    medium: 'Photography, video, editorial design',
-    thumbnail: 'topographic',
-    context: [
-      'A year-long content partnership documenting the seasonal rhythms of a collective of fifteen farms across Zeeland and Noord-Brabant.',
-      'The challenge was finding a visual language that honored the work — unglamorised and unsentimental — while remaining compelling to an urban audience that had no prior connection to agriculture.',
-    ],
-    thinking: [
-      'We rejected the farm aesthetic immediately. No golden light, no dewy vegetables, no romanticisation of physical labor. Instead: the geometry of fields from altitude, the texture of soil, the mechanics of equipment in the morning dark.',
-      'The editorial calendar followed the actual agricultural calendar. When nothing significant was happening in the fields, we published nothing. This constraint improved everything.',
-    ],
-    outcome: {
-      description:
-        'Published across Instagram, a monthly newsletter, and a printed annual distributed to cooperative members and institutional partners.',
-      metrics: [
-        { value: '52', label: 'newsletter issues' },
-        { value: '4 seasons', label: 'documented' },
-        { value: '1 annual', label: 'printed edition' },
-      ],
-    },
-  },
-  {
-    slug: 'drawing-fundamentals',
-    title: 'Drawing Fundamentals',
-    subtitle: 'Workshop series for non-artists in professional contexts',
-    category: 'teaching',
-    filterLabel: 'Teaching',
-    year: '2023',
-    role: 'Educator & Curriculum Designer',
-    client: 'Private, various cohorts',
-    medium: 'Workshop design, facilitation, printed workbooks',
-    thumbnail: 'geometric',
-    context: [
-      'A six-session workshop series teaching foundational drawing skills to professionals — primarily designers, architects, and strategists who had stopped drawing somewhere in their careers.',
-      'The premise: drawing is not a talent, it is a practice of structured attention. The sessions use academic drawing exercises not as ends in themselves, but as a method of learning to look more precisely.',
-    ],
-    thinking: [
-      'The curriculum is built around three pairs: mark and surface, line and form, figure and ground. Each session introduces one pair, and all subsequent sessions return to it.',
-      'The most consequential session is the fourth — the one where participants begin drawing what they actually see, not what they think they see. This shift, once made, cannot be unmade.',
-    ],
-    outcome: {
-      description:
-        'Fourteen cohorts delivered across 2023–2024, with a participant satisfaction rate of 97% and a standing waiting list.',
-      metrics: [
-        { value: '14', label: 'cohorts' },
-        { value: '97%', label: 'satisfaction' },
-        { value: '6 sessions', label: 'per cohort' },
-      ],
-    },
-  },
-  {
-    slug: 'ant-element',
-    title: 'Ant.Element',
-    subtitle: null, // TODO
-    category: 'content',
-    filterLabel: 'Content',
-    year: null, // TODO
-    role: null, // TODO
-    client: null, // TODO
-    medium: 'Instagram series',
-    thumbnail: '/images/projects/ant-element/ant-element-01.jpg',
-    context: [], // TODO
-    thinking: [], // TODO
-    outcome: {
-      description: null, // TODO
+      description: null,
       metrics: null,
     },
+    gallery: [
+      { src: '/images/projects/paintings/painting-01.jpg', caption: null },
+      { src: '/images/projects/paintings/painting-02.jpg', caption: null },
+      { src: '/images/projects/paintings/painting-03.jpg', caption: null },
+      { src: '/images/projects/paintings/painting-04.jpg', caption: null },
+      { src: '/images/projects/paintings/painting-05.jpg', caption: null },
+      { src: '/images/projects/paintings/painting-06.jpg', caption: null },
+    ],
   },
   {
     slug: 'not-all-impact-is-visible',
     title: 'Not All Impact Is Visible',
-    subtitle: 'Instagram carousel for Ant.Element',
-    category: 'content',
-    filterLabel: 'Content',
-    year: null, // TODO
+    subtitle: 'Editorial carousel for Ant.Element',
+    category: 'brochure',
+    filterLabel: 'Brochure',
+    year: '2024',
     role: 'Art Director & Content Designer',
     client: 'Ant.Element',
-    medium: 'Instagram carousel, graphic design',
+    medium: 'Editorial design, Instagram carousel',
     thumbnail: '/images/projects/ant-element/ant-element-01.jpg',
     context: [
-      'A five-slide Instagram carousel designed to reframe how audiences think about social impact. The central argument: the ventures doing the most significant work often go unseen and underfunded — because visibility and impact are not the same thing.',
+      'A five-slide editorial carousel designed to reframe how audiences think about social impact. The central argument: the ventures doing the most significant work often go unseen and underfunded — because visibility and impact are not the same thing.',
       'The carousel opens with an iceberg diagram to make that distinction immediate and visual. What is measurable floats above the surface; what is real often does not. Each slide deepens the argument progressively, building toward a clear positioning statement for Ant.Element.',
     ],
     thinking: [
@@ -162,17 +95,17 @@ export const projects = [
   },
   {
     slug: 'why-ant',
-    title: 'Why "ANT"?',
+    title: 'Why “ANT”?',
     subtitle: 'Brand narrative carousel for Ant.Element',
-    category: 'content',
-    filterLabel: 'Content',
-    year: null, // TODO
+    category: 'brochure',
+    filterLabel: 'Brochure',
+    year: '2024',
     role: 'Art Director & Content Designer',
     client: 'Ant.Element',
-    medium: 'Instagram carousel, brand storytelling',
+    medium: 'Editorial design, brand storytelling',
     thumbnail: '/images/projects/ant-element/ant-element-09.jpg',
     context: [
-      'A four-slide Instagram carousel that answers the question most new audiences ask on first encounter: why the name Ant.Element? Rather than a direct explanation, the carousel uses contrast — the oversized lightbulb versus the small, purposeful ant — to make the philosophy memorable rather than just legible.',
+      'A four-slide carousel that answers the question most new audiences ask on first encounter: why the name Ant.Element? Rather than a direct explanation, the piece uses contrast — the oversized lightbulb versus the small, purposeful ant — to make the philosophy memorable rather than just legible.',
       'The ants are never shown alone. They move as a group, carrying what no single one of them could. This visual choice reinforces the brand\'s core argument: that meaningful, lasting change emerges from small actions, collective effort, and consistency — not singular breakthroughs.',
     ],
     thinking: [
@@ -184,7 +117,7 @@ export const projects = [
       metrics: null,
     },
     gallery: [
-      { src: '/images/projects/ant-element/ant-element-06.jpg', caption: 'Why "ANT"? — opening the question' },
+      { src: '/images/projects/ant-element/ant-element-06.jpg', caption: 'Why “ANT”? — opening the question' },
       { src: '/images/projects/ant-element/ant-element-07.jpg', caption: 'Real change doesn\'t come from one big idea' },
       { src: '/images/projects/ant-element/ant-element-08.jpg', caption: 'Small actions, collective effort, and consistency' },
       { src: '/images/projects/ant-element/ant-element-09.jpg', caption: 'That\'s what Ant.Element stands for' },
@@ -193,9 +126,9 @@ export const projects = [
 ]
 
 export const filterCategories = [
-  { id: 'all',        label: 'All' },
-  { id: 'visual-art', label: 'Visual Art' },
-  { id: 'content',    label: 'Content' },
-  { id: 'strategy',   label: 'Strategy' },
-  { id: 'teaching',   label: 'Teaching' },
+  { id: 'all',       label: 'All' },
+  { id: 'drawings',  label: 'Drawings' },
+  { id: 'paintings', label: 'Paintings' },
+  { id: 'brochure',  label: 'Brochure' },
+  { id: 'website',   label: 'Website' },
 ]
