@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react'
+import { Fragment, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { motion } from 'framer-motion'
-import { useReducedMotion } from '@/hooks/useReducedMotion'
 import SectionLabel from '@/components/ui/SectionLabel'
 import Hairline from '@/components/ui/Hairline'
 import GhostLink from '@/components/ui/GhostLink'
@@ -81,19 +80,15 @@ const whatIDo = [
 ]
 
 export default function About() {
-  const reducedMotion = useReducedMotion()
-  const [shouldAnimate, setShouldAnimate] = useState(false)
-
-  useEffect(() => {
-    if (reducedMotion) return
+  const [shouldAnimate] = useState(() => {
+    if (typeof window === 'undefined') return false
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false
     try {
-      const seen = sessionStorage.getItem('faryn-about-seen')
-      if (!seen) {
-        setShouldAnimate(true)
-        sessionStorage.setItem('faryn-about-seen', '1')
-      }
-    } catch { /* ignore */ }
-  }, [reducedMotion])
+      if (sessionStorage.getItem('faryn-about-seen')) return false
+      sessionStorage.setItem('faryn-about-seen', '1')
+      return true
+    } catch { return false }
+  })
 
   return (
     <>
@@ -137,37 +132,38 @@ export default function About() {
                   const settleDelay = appearDelay + 0.4
 
                   return (
-                    <motion.span
-                      key={`word-${i}`}
-                      className={`${styles.word}${word.italic ? ` ${styles.italic}` : ''}`}
-                      initial={shouldAnimate ? { opacity: 0, y: 8, color: '#d42b2b' } : false}
-                      animate={
-                        shouldAnimate
-                          ? {
-                              opacity: 1,
-                              y: 0,
-                              color: ['#d42b2b', '#d42b2b', '#0a0a0a'],
-                            }
-                          : undefined
-                      }
-                      transition={
-                        shouldAnimate
-                          ? {
-                              opacity: { duration: 0.5, delay: appearDelay, ease: [0.22, 1, 0.36, 1] },
-                              y:       { duration: 0.5, delay: appearDelay, ease: [0.22, 1, 0.36, 1] },
-                              color:   {
-                                duration: 0.6,
-                                delay: settleDelay,
-                                times: [0, 0.5, 1],
-                                ease: 'easeOut',
-                              },
-                            }
-                          : undefined
-                      }
-                    >
-                      {word.text}
-                    </motion.span>
-                    {' '}
+                    <Fragment key={`word-${i}`}>
+                      <motion.span
+                        className={`${styles.word}${word.italic ? ` ${styles.italic}` : ''}`}
+                        initial={shouldAnimate ? { opacity: 0, y: 8, color: '#d42b2b' } : false}
+                        animate={
+                          shouldAnimate
+                            ? {
+                                opacity: 1,
+                                y: 0,
+                                color: ['#d42b2b', '#d42b2b', '#0a0a0a'],
+                              }
+                            : undefined
+                        }
+                        transition={
+                          shouldAnimate
+                            ? {
+                                opacity: { duration: 0.5, delay: appearDelay, ease: [0.22, 1, 0.36, 1] },
+                                y:       { duration: 0.5, delay: appearDelay, ease: [0.22, 1, 0.36, 1] },
+                                color:   {
+                                  duration: 0.6,
+                                  delay: settleDelay,
+                                  times: [0, 0.5, 1],
+                                  ease: 'easeOut',
+                                },
+                              }
+                            : undefined
+                        }
+                      >
+                        {word.text}
+                      </motion.span>
+                      {' '}
+                    </Fragment>
                   )
                 })}
               </h1>
