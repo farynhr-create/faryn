@@ -3,7 +3,109 @@
   margin: 0 auto;
 }
 
-/* ── Bio (uses the same column grid as PageHeader) ─── */
+/* ── Hero ───────────────────────────────────────── */
+.hero {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  min-height: 620px;
+  background: var(--color-paper);
+  border-bottom: var(--hairline);
+}
+
+.textSide {
+  padding: 4rem 3rem 4rem 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sectionMark {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  opacity: 0.7;
+}
+
+.sectionMark::before {
+  content: '';
+  width: 32px;
+  height: 0.5px;
+  background: var(--color-ink);
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+.openingLineWrap {
+  position: relative;
+  padding-left: 2.2rem;
+  margin-bottom: 2rem;
+}
+
+.redDot {
+  position: absolute;
+  left: 0;
+  top: 1.3rem;
+  width: 14px;
+  height: 14px;
+  background: var(--color-mark);
+  border-radius: 50%;
+}
+
+.openingLine {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 3.4rem;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--color-ink);
+  margin: 0;
+}
+
+.word {
+  display: inline-block;
+  font-style: normal;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.caption {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: var(--hairline);
+  opacity: 0.7;
+  max-width: 320px;
+  line-height: 1.8;
+}
+
+.imageSide {
+  background: var(--color-paper-deep);
+  overflow: hidden;
+  position: relative;
+  margin: 0;
+}
+
+.portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Background (same column grid as other sections) ── */
 .bio { background: var(--color-paper); }
 
 .bioInner {
@@ -194,26 +296,104 @@
   max-width: 30ch;
 }
 
+/* ── What I Do (same column grid) ──────────────── */
+.whatIDo { background: var(--color-paper); }
+
+.whatIDoInner {
+  padding-inline: var(--content-padding);
+  padding-block: var(--space-9);
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: var(--space-8);
+  align-items: start;
+}
+
+.whatIDoMeta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding-top: var(--space-2);
+}
+
+.whatIDoGrid {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.whatIDoRow {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: var(--space-6);
+  padding-block: var(--space-5);
+  border-top: var(--hairline);
+  align-items: baseline;
+}
+
+.whatIDoRow:last-child { border-bottom: var(--hairline); }
+
+.whatIDoLabel {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  opacity: 0.5;
+}
+
+.whatIDoContent {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: var(--text-body);
+  line-height: 1.75;
+  color: var(--color-ink);
+  opacity: 0.85;
+}
+
 /* ── Responsive ─────────────────────────────────── */
 @media (max-width: 1024px) {
   .bioInner,
   .factsInner,
-  .disciplinesInner {
+  .disciplinesInner,
+  .whatIDoInner {
     grid-template-columns: 1fr;
     gap: var(--space-5);
   }
-  .factRow {
+  .factRow,
+  .whatIDoRow {
     grid-template-columns: 1fr;
     gap: var(--space-3);
   }
   .disciplineGrid { grid-template-columns: 1fr; }
 }
 
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }
+  .textSide {
+    padding: 3rem 1.5rem;
+    order: 2;
+  }
+  .imageSide {
+    order: 1;
+    min-height: 480px;
+  }
+  .openingLine { font-size: 2rem; }
+  .openingLineWrap { padding-left: 1.6rem; }
+  .redDot {
+    width: 10px;
+    height: 10px;
+    top: 0.85rem;
+  }
+}
+
 @media (max-width: 640px) {
   .bioInner,
   .factsInner,
-  .disciplinesInner {
+  .disciplinesInner,
+  .whatIDoInner {
     padding-inline: var(--space-5);
     padding-block: var(--space-8);
   }
+  .textSide { padding: 2.5rem var(--space-5); }
 }

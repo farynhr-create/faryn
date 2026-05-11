@@ -1,9 +1,27 @@
+import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
+import { motion } from 'framer-motion'
+import { useReducedMotion } from '@/hooks/useReducedMotion'
 import SectionLabel from '@/components/ui/SectionLabel'
 import Hairline from '@/components/ui/Hairline'
 import GhostLink from '@/components/ui/GhostLink'
-import PageHeader from '@/components/ui/PageHeader'
 import styles from './About.module.css'
+
+const HEADLINE_WORDS = [
+  { text: "I'm",      italic: false },
+  { text: 'a',        italic: false },
+  { text: 'designer', italic: false },
+  { lineBreak: true },
+  { text: 'who',      italic: false },
+  { text: 'learned',  italic: false },
+  { text: 'to',       italic: true  },
+  { text: 'see',      italic: true  },
+  { lineBreak: true },
+  { text: 'before',   italic: false },
+  { text: 'learning', italic: false },
+  { text: 'to',       italic: true  },
+  { text: 'code.',    italic: true  },
+]
 
 const disciplines = [
   {
@@ -47,21 +65,50 @@ const facts = [
   },
 ]
 
+const whatIDo = [
+  {
+    label: 'Design',
+    content: 'visual identity, content design, carousel and editorial layout, campaign visuals, print and digital',
+  },
+  {
+    label: 'Strategy',
+    content: 'audience research, brand positioning, content strategy, editorial planning',
+  },
+  {
+    label: 'Craft',
+    content: 'fifteen years of oil painting, illustration, and drawing — the eye underneath the work',
+  },
+]
+
 export default function About() {
+  const reducedMotion = useReducedMotion()
+  const [shouldAnimate, setShouldAnimate] = useState(false)
+
+  useEffect(() => {
+    if (reducedMotion) return
+    try {
+      const seen = sessionStorage.getItem('faryn-about-seen')
+      if (!seen) {
+        setShouldAnimate(true)
+        sessionStorage.setItem('faryn-about-seen', '1')
+      }
+    } catch { /* ignore */ }
+  }, [reducedMotion])
+
   return (
     <>
       <Helmet>
         <title>About — Faryn Studio</title>
         <meta
           name="description"
-          content="Faryn Studio is a one-person creative practice based in Amsterdam working across visual art, content creation, and content strategy."
+          content="Farnoosh is a content designer working at the intersection of visual craft and marketing strategy, based in Amsterdam."
         />
         <script type="application/ld+json">
           {JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'Person',
             name: 'Faryn Studio',
-            jobTitle: 'Visual Artist & Content Strategist',
+            jobTitle: 'Content Designer',
             address: {
               '@type': 'PostalAddress',
               addressLocality: 'Amsterdam',
@@ -73,50 +120,123 @@ export default function About() {
       </Helmet>
 
       <div className={styles.page}>
+
+        {/* ── Hero ───────────────────────────────────── */}
+        <section className={styles.hero}>
+          <div className={styles.textSide}>
+            <p className={styles.sectionMark}>Practice</p>
+
+            <div className={styles.openingLineWrap}>
+              <span className={styles.redDot} aria-hidden="true" />
+              <h1 className={styles.openingLine}>
+                {HEADLINE_WORDS.map((word, i) => {
+                  if (word.lineBreak) return <br key={`br-${i}`} />
+
+                  const wordIndex = HEADLINE_WORDS.slice(0, i).filter(w => !w.lineBreak).length
+                  const appearDelay = shouldAnimate ? 0.8 + (wordIndex * 0.15) : 0
+                  const settleDelay = appearDelay + 0.4
+
+                  return (
+                    <motion.span
+                      key={`word-${i}`}
+                      className={`${styles.word}${word.italic ? ` ${styles.italic}` : ''}`}
+                      initial={shouldAnimate ? { opacity: 0, y: 8, color: '#d42b2b' } : false}
+                      animate={
+                        shouldAnimate
+                          ? {
+                              opacity: 1,
+                              y: 0,
+                              color: ['#d42b2b', '#d42b2b', '#0a0a0a'],
+                            }
+                          : undefined
+                      }
+                      transition={
+                        shouldAnimate
+                          ? {
+                              opacity: { duration: 0.5, delay: appearDelay, ease: [0.22, 1, 0.36, 1] },
+                              y:       { duration: 0.5, delay: appearDelay, ease: [0.22, 1, 0.36, 1] },
+                              color:   {
+                                duration: 0.6,
+                                delay: settleDelay,
+                                times: [0, 0.5, 1],
+                                ease: 'easeOut',
+                              },
+                            }
+                          : undefined
+                      }
+                    >
+                      {word.text}
+                    </motion.span>
+                    {' '}
+                  )
+                })}
+              </h1>
+            </div>
+
+            <p className={styles.caption}>
+              Farnoosh Rouhi<br />
+              Content Designer · Amsterdam · 2026
+            </p>
+          </div>
+
+          <figure className={styles.imageSide}>
+            <img
+              src="/images/about/farnoosh-portrait.png"
+              alt="Farnoosh in her studio"
+              className={styles.portrait}
+              width="1024"
+              height="1024"
+              loading="eager"
+            />
+          </figure>
+        </section>
+
         <Hairline />
 
-        <PageHeader
-          index="03 / 04"
-          label="About"
-          meta={[
-            { label: 'Founded',  value: '2018' },
-            { label: 'Location', value: 'Amsterdam, NL' },
-            { label: 'Practice', value: 'Independent' },
-          ]}
-          titleId="about-statement"
-          title={<>Where art<br /><em>meets</em> strategy</>}
-          intro="A one-person creative practice operating at the intersection of fine art and strategic communication. Working with cultural organisations, independent publishers, and brands that communicate with intention."
-        />
-
-        <Hairline />
-
-        {/* ── Bio ────────────────────────────────────── */}
+        {/* ── Background ─────────────────────────────── */}
         <section className={styles.bio} aria-labelledby="bio-label">
           <div className={styles.bioInner}>
             <div className={styles.bioMeta}>
-              <SectionLabel id="bio-label" variant="before">Practice</SectionLabel>
+              <SectionLabel id="bio-label" variant="before">Background</SectionLabel>
             </div>
             <div className={styles.bioBody}>
-              <p className={styles.lead}>
-                Faryn Studio is a one-person creative practice operating at the
-                intersection of fine art and strategic communication.
+              <p className={styles.body}>
+                Before I designed for screens, I painted on canvas. Fifteen years
+                of fine art in Tehran taught me how visual decisions actually
+                work — why one composition feels balanced and another feels off,
+                why a colour can carry an emotion the words can't. That training
+                is the foundation of every system, every carousel I make now.
               </p>
               <p className={styles.body}>
-                The studio was founded on the premise that making things and
-                thinking about why they are made are not separate disciplines —
-                they are the same practice, viewed from different angles.
+                The second layer came later, through a master's in Content &amp; Media
+                Strategy at NHL Stenden. It taught me to read the other half of
+                the design conversation — the side marketing teams speak. Audience
+                research, brand positioning, content funnels, behavioural
+                frameworks. Things designers often inherit as briefs without
+                understanding the thinking behind them.
               </p>
               <p className={styles.body}>
-                Work moves between the studio and the desk: between a series of
-                drawings on paper and a content strategy for an institution. The
-                through-line is the same in both — attention to material, to
-                audience, and to the space between what is said and what is
-                meant.
+                The combination is what I bring to a team:{' '}
+                <em>a designer who speaks marketing, and a strategist who designs.</em>{' '}
+                When a marketing lead says "we need this to convert," I know what
+                that means in pixels. When a brand says "we want this to feel
+                premium," I know which typographic and compositional choices get
+                us there — not by guess, but by craft. I translate between the
+                two languages most teams need translated.
               </p>
               <p className={styles.body}>
-                Based in Amsterdam, the studio works with cultural organisations,
-                independent publishers, and brands that communicate with
-                intention. Projects are taken selectively and pursued thoroughly.
+                Today I work with cultural institutions, social innovation labs,
+                and independent brands across the Netherlands. The work moves
+                between disciplines: brand systems, content design for social
+                and editorial, visual identity, campaign creative. The studio is
+                small by intention. Each project gets attention from concept to
+                execution.
+              </p>
+              <p className={styles.body}>
+                I take on a small number of projects at a time, and I'm selective
+                about fit. If your team needs design that can hold its own with
+                the strategy behind it — and the strategy that knows what design
+                can carry — I'd like to hear from you.
               </p>
               <div className={styles.contact}>
                 <GhostLink href="mailto:hello@farynstudio.nl" hairline>
@@ -124,6 +244,25 @@ export default function About() {
                 </GhostLink>
               </div>
             </div>
+          </div>
+        </section>
+
+        <Hairline />
+
+        {/* ── What I Do ──────────────────────────────── */}
+        <section className={styles.whatIDo} aria-labelledby="whatido-label">
+          <div className={styles.whatIDoInner}>
+            <div className={styles.whatIDoMeta}>
+              <SectionLabel id="whatido-label" variant="before">What I Do</SectionLabel>
+            </div>
+            <dl className={styles.whatIDoGrid}>
+              {whatIDo.map((row) => (
+                <div key={row.label} className={styles.whatIDoRow}>
+                  <dt className={styles.whatIDoLabel}>{row.label}</dt>
+                  <dd className={styles.whatIDoContent}>{row.content}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </section>
 
