@@ -38,8 +38,32 @@ export default function Footer() {
         <Hairline />
         <div className={styles.bottomInner}>
           <p className={styles.copy}>
-            &copy; {new Date().getFullYear()} Faryn Studio. All rights reserved.
+            &copy; {new Date().getFullYear()} Faryn Studio
           </p>
+          <nav className={styles.bottomLinks} aria-label="Social links">
+            <a
+              href="https://www.linkedin.com/in/farnoosh-rouhi-58424180/"
+              className={styles.socialLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn
+            </a>
+            <span className={styles.dot} aria-hidden="true">·</span>
+            <a
+              href="#instagram-placeholder"
+              className={styles.socialLink}
+            >
+              Instagram
+            </a>
+            <span className={styles.dot} aria-hidden="true">·</span>
+            <a
+              href="mailto:hello@farynstudio.nl"
+              className={styles.socialLink}
+            >
+              Email
+            </a>
+          </nav>
         </div>
       </div>
     </footer>
