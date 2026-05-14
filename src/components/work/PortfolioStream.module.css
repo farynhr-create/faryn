@@ -1,0 +1,313 @@
+/* ─── Stream container ─────────────────────────────── */
+.stream {
+  background: var(--color-paper);
+}
+
+.empty {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-9) var(--content-padding);
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--color-ink);
+  opacity: 0.55;
+}
+
+/* ─── Section (one project) ────────────────────────── */
+.section {
+  border-top: var(--hairline);
+}
+.section:last-child {
+  border-bottom: var(--hairline);
+}
+
+.sectionInner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-inline: var(--content-padding);
+  padding-block: var(--space-9);
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: var(--space-8);
+  align-items: start;
+}
+
+/* ─── Meta rail (left) ─────────────────────────────── */
+.rail {
+  position: sticky;
+  top: calc(var(--nav-height) + var(--space-5));
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.railHead {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-bottom: var(--space-4);
+  border-bottom: var(--hairline);
+}
+
+.bigN {
+  font-family: var(--font-serif);
+  font-size: clamp(2.6rem, 4.4vw, 4rem);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 0.9;
+  color: var(--color-ink);
+  letter-spacing: -0.02em;
+}
+
+.discipline {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  opacity: 0.5;
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+}
+
+.metaRow {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: var(--space-3);
+  padding-block: var(--space-2);
+  border-bottom: 0.5px solid rgba(10, 10, 10, 0.08);
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.metaRow:last-child {
+  border-bottom: none;
+}
+.metaRow dt {
+  color: var(--color-ink);
+  opacity: 0.4;
+  margin: 0;
+}
+.metaRow dd {
+  color: var(--color-ink);
+  opacity: 0.85;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ─── Body (right) ─────────────────────────────────── */
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  min-width: 0;
+}
+
+.bodyHead {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 4.4vw, 3.6rem);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  color: var(--color-ink);
+  max-width: 18ch;
+}
+
+.subtitle {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  line-height: 1.55;
+  color: var(--color-ink);
+  opacity: 0.7;
+  max-width: 52ch;
+}
+
+/* ─── Gallery wrappers ─────────────────────────────── */
+.gallery {
+  padding-top: var(--space-4);
+}
+
+/* ─── Artwork mode (drawings / paintings) ──────────── */
+.artworkStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+}
+
+.plate {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.plateFrame {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-paper-deep);
+  border: 0.5px solid rgba(10, 10, 10, 0.08);
+}
+
+.plateFrame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 1.2s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.plate:hover .plateFrame img {
+  transform: scale(1.025);
+}
+
+.plateLead .plateFrame {
+  aspect-ratio: 4 / 3;
+}
+
+.plateGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-6) var(--space-5);
+}
+
+.plateGrid .plate .plateFrame {
+  aspect-ratio: 3 / 4;
+}
+
+/* Orphan at the end of a 2-col grid → feature it full-width with a landscape crop */
+.plateGrid .plate:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+.plateGrid .plate:last-child:nth-child(odd) .plateFrame {
+  aspect-ratio: 16 / 9;
+}
+
+/* Caption */
+.plateCaption,
+.editorialCaption {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  opacity: 0.55;
+  line-height: 1.55;
+}
+
+.captionIdx {
+  opacity: 0.55;
+}
+
+/* ─── Editorial mode (carousel slides as a column) ──── */
+.editorialStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.editorialSlide {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.editorialFrame {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: var(--color-paper-deep);
+  border: 0.5px solid rgba(10, 10, 10, 0.08);
+}
+
+.editorialFrame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 1.2s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.editorialSlide:hover .editorialFrame img {
+  transform: scale(1.015);
+}
+
+/* ─── Responsive ───────────────────────────────────── */
+@media (max-width: 1024px) {
+  .sectionInner {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    padding-block: var(--space-8);
+  }
+  .rail {
+    position: static;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  .railHead {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-bottom: var(--space-3);
+  }
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-1) var(--space-5);
+  }
+  .metaRow {
+    border-bottom: none;
+    padding-block: var(--space-1);
+  }
+  .note,
+  .outcome {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+}
+
+@media (max-width: 640px) {
+  .sectionInner {
+    padding-inline: var(--space-5);
+    padding-block: var(--space-7);
+  }
+  .meta {
+    grid-template-columns: 1fr;
+  }
+  .plateGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+  .plateGrid .plate .plateFrame {
+    aspect-ratio: 4 / 5;
+  }
+  .plateLead .plateFrame {
+    aspect-ratio: 4 / 5;
+  }
+  .editorialFrame {
+    aspect-ratio: 1 / 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plateFrame img,
+  .editorialFrame img {
+    transition: none;
+  }
+}

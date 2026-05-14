@@ -2,36 +2,33 @@ import { useState, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import styles from './HeroComposition.module.css'
 
-/* Right-column vertical-rail composition.
+/* Right-column vertical-rail composition — refined edition.
  *
  * Conceived as a Japanese haiku in spatial form:
- *  - One vertical hairline (the tatami edge)
- *  - Four small dots evenly stacked on the line — each is a wayfinder
- *  - A single small red mark (hanko / seal) sits beside the rail and
- *    glides to the hovered anchor with a spring — the "you-are-aiming-at"
- *    indicator
+ *  - A vertical hairline (the tatami edge), capped top + bottom with tick marks
+ *  - Four anchors stacked on the line — number + serif name, generous in scale
+ *  - A red hanko (seal) glides to the hovered anchor, slim leader tick connects it
+ *  - Top "INDEX" and bottom signature frame the rail like a scroll
  */
 
-const VB_W = 320
-const VB_H = 720
-const RAIL_X = 84
-const RAIL_TOP = 90
-const RAIL_BOTTOM = 630
+const VB_W = 400
+const VB_H = 760
+const RAIL_X = 96
+const RAIL_TOP = 110
+const RAIL_BOTTOM = 660
 
 const NAV = [
-  { id: 'work',     y: 165, num: '01', label: 'Portfolio' },
-  { id: 'services', y: 295, num: '02', label: 'Services' },
-  { id: 'about',    y: 425, num: '03', label: 'About' },
-  { id: 'contact',  y: 555, num: '04', label: 'Contact' },
+  { id: 'work',     y: 195, num: '01', label: 'Portfolio' },
+  { id: 'services', y: 325, num: '02', label: 'Services' },
+  { id: 'about',    y: 455, num: '03', label: 'About' },
+  { id: 'contact',  y: 585, num: '04', label: 'Contact' },
 ]
 
-/* Hanko — small red seal, off the rail to the right.
- * Resting position is the visual centre of the rail. */
-const HANKO_REST_Y = (RAIL_TOP + RAIL_BOTTOM) / 2 // 360
-const HANKO_X = 218
-const HANKO_R = 13
+const HANKO_REST_Y = (RAIL_TOP + RAIL_BOTTOM) / 2
+const HANKO_X = 282
+const HANKO_R = 18
 const TICK_FROM_X = RAIL_X
-const TICK_TO_X = HANKO_X - HANKO_R - 6
+const TICK_TO_X = HANKO_X - HANKO_R - 8
 
 function smoothScrollTo(id) {
   const el = document.getElementById(id)
@@ -59,7 +56,6 @@ export default function HeroComposition() {
     [onActivate],
   )
 
-  /* Where the hanko should sit right now */
   const targetY =
     hovered != null
       ? NAV.find((n) => n.id === hovered)?.y ?? HANKO_REST_Y
@@ -74,19 +70,66 @@ export default function HeroComposition() {
       preserveAspectRatio="xMidYMid meet"
       className={styles.svg}
     >
-      {/* Vertical rail — the tatami edge */}
+      {/* Top tick cap — kake-jiku scroll mark */}
+      <line
+        x1={RAIL_X - 14}
+        y1={RAIL_TOP}
+        x2={RAIL_X + 14}
+        y2={RAIL_TOP}
+        stroke="var(--color-ink)"
+        strokeWidth="0.5"
+        opacity="0.55"
+      />
+
+      {/* "INDEX" — mono caps framing the top of the rail */}
+      <text
+        x={RAIL_X + 26}
+        y={RAIL_TOP}
+        dy="0.34em"
+        className={styles.frameLabel}
+        fontFamily="var(--font-mono)"
+        fontSize="10"
+        fill="var(--color-ink)"
+      >
+        INDEX
+      </text>
+
+      {/* Vertical rail */}
       <line
         x1={RAIL_X}
         y1={RAIL_TOP}
         x2={RAIL_X}
         y2={RAIL_BOTTOM}
         stroke="var(--color-ink)"
-        strokeWidth="0.5"
+        strokeWidth="0.6"
         opacity="0.5"
       />
 
-      {/* Four nav anchors, stacked on the rail (rendered first so the
-          moving hanko sits visually on top) */}
+      {/* Bottom tick cap */}
+      <line
+        x1={RAIL_X - 14}
+        y1={RAIL_BOTTOM}
+        x2={RAIL_X + 14}
+        y2={RAIL_BOTTOM}
+        stroke="var(--color-ink)"
+        strokeWidth="0.5"
+        opacity="0.55"
+      />
+
+      {/* Signature at the foot of the rail */}
+      <text
+        x={RAIL_X + 26}
+        y={RAIL_BOTTOM}
+        dy="0.34em"
+        className={styles.frameLabel}
+        fontFamily="var(--font-mono)"
+        fontSize="10"
+        fill="var(--color-ink)"
+      >
+        FARYN — MMXXVI
+      </text>
+
+      {/* Four nav anchors */}
       {NAV.map((d) => {
         const isHover = hovered === d.id
         const isDimmed = hovered !== null && !isHover
@@ -106,12 +149,23 @@ export default function HeroComposition() {
           >
             {/* Generous invisible hit target */}
             <rect
-              x={RAIL_X - 30}
-              y={d.y - 22}
-              width={260}
-              height={44}
+              x={RAIL_X - 36}
+              y={d.y - 30}
+              width={340}
+              height={60}
               fill="transparent"
               className={styles.hitTarget}
+            />
+
+            {/* Outer ring — fades in on hover */}
+            <circle
+              className={styles.dotRing}
+              cx={RAIL_X}
+              cy={d.y}
+              r={11}
+              fill="none"
+              stroke="var(--color-mark)"
+              strokeWidth="0.6"
             />
 
             {/* The dot, pinned to the rail */}
@@ -119,18 +173,18 @@ export default function HeroComposition() {
               className={styles.dot}
               cx={RAIL_X}
               cy={d.y}
-              r={3.2}
+              r={4.8}
               fill="var(--color-ink)"
             />
 
-            {/* Number — small mono caps */}
+            {/* Number — mono caps */}
             <text
               className={styles.numLabel}
-              x={RAIL_X + 22}
+              x={RAIL_X + 30}
               y={d.y}
-              dy="0.36em"
+              dy="0.34em"
               fontFamily="var(--font-mono)"
-              fontSize="8"
+              fontSize="11"
               fill="var(--color-ink)"
             >
               {d.num}
@@ -139,12 +193,12 @@ export default function HeroComposition() {
             {/* Section name — serif italic */}
             <text
               className={styles.nameLabel}
-              x={RAIL_X + 56}
+              x={RAIL_X + 72}
               y={d.y}
               dy="0.32em"
               fontFamily="var(--font-serif)"
               fontStyle="italic"
-              fontSize="17"
+              fontSize="26"
               fill="var(--color-ink)"
             >
               {d.label}
@@ -153,7 +207,7 @@ export default function HeroComposition() {
         )
       })}
 
-      {/* Moving hanko + tick — slides to the hovered anchor */}
+      {/* Moving hanko + tick */}
       <motion.g
         initial={false}
         animate={{ y: targetY - HANKO_REST_Y }}
@@ -172,24 +226,35 @@ export default function HeroComposition() {
           style={{ transition: 'opacity 0.3s ease' }}
         />
 
-        {/* Hanko itself — gets a brief bloom when it lands */}
+        {/* Soft glow halo */}
         <motion.circle
           cx={HANKO_X}
           cy={HANKO_REST_Y}
           fill="var(--color-mark)"
           initial={false}
-          animate={{ r: hovered ? HANKO_R + 2 : HANKO_R }}
+          animate={{
+            r: hovered ? HANKO_R * 2.4 : HANKO_R * 1.6,
+            opacity: hovered ? 0.16 : 0.04,
+          }}
+          transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+        />
+
+        {/* Hanko itself */}
+        <motion.circle
+          cx={HANKO_X}
+          cy={HANKO_REST_Y}
+          fill="var(--color-mark)"
+          initial={false}
+          animate={{ r: hovered ? HANKO_R + 3 : HANKO_R }}
           transition={{ type: 'spring', stiffness: 320, damping: 18 }}
         />
 
-        {/* Soft glow halo on hover */}
-        <motion.circle
-          cx={HANKO_X}
-          cy={HANKO_REST_Y}
-          fill="var(--color-mark)"
-          initial={false}
-          animate={{ r: hovered ? HANKO_R * 2 : HANKO_R, opacity: hovered ? 0.18 : 0 }}
-          transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+        {/* Inner specular — gives the seal a hand-pressed quality */}
+        <circle
+          cx={HANKO_X - 5}
+          cy={HANKO_REST_Y - 5}
+          r={2}
+          fill="rgba(255,255,255,0.18)"
         />
       </motion.g>
     </svg>

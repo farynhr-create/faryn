@@ -11,6 +11,7 @@ export default function PageHeader({
   title,        // ReactNode (use <em> for italic emphasis)
   titleId,      // optional id for aria-labelledby
   intro,        // string
+  hideMark = false, // suppress the corner line+dot mark
 }) {
   return (
     <header className={styles.header}>
@@ -39,20 +40,22 @@ export default function PageHeader({
         </div>
 
         {/* Corner mark — leader hairline + red dot, echoes landing composition */}
-        <span className={styles.mark} aria-hidden="true">
-          <svg viewBox="0 0 80 40" xmlns="http://www.w3.org/2000/svg">
-            <line
-              x1="0"
-              y1="20"
-              x2="58"
-              y2="20"
-              stroke="var(--color-ink)"
-              strokeWidth="0.5"
-              opacity="0.4"
-            />
-            <circle cx="64" cy="20" r="4.5" fill="var(--color-mark)" />
-          </svg>
-        </span>
+        {!hideMark && (
+          <span className={styles.mark} aria-hidden="true">
+            <svg viewBox="0 0 80 40" xmlns="http://www.w3.org/2000/svg">
+              <line
+                x1="0"
+                y1="20"
+                x2="58"
+                y2="20"
+                stroke="var(--color-ink)"
+                strokeWidth="0.5"
+                opacity="0.4"
+              />
+              <circle cx="64" cy="20" r="4.5" fill="var(--color-mark)" />
+            </svg>
+          </span>
+        )}
       </div>
     </header>
   )

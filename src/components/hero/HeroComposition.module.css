@@ -5,6 +5,13 @@
   overflow: visible;
 }
 
+/* ── Frame labels (INDEX / signature) ──────────────── */
+.frameLabel {
+  opacity: 0.45;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
 /* ── Anchor groups ─────────────────────────────────── */
 .anchor {
   cursor: crosshair;
@@ -18,25 +25,38 @@
 
 /* ── Idle state ───────────────────────────────────── */
 .dot {
-  opacity: 0.65;
+  opacity: 0.7;
   transition:
-    r 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+    r 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
     fill 0.25s ease,
     opacity 0.25s ease;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.dotRing {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(0.65);
+  transition:
+    opacity 0.35s ease,
+    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .numLabel {
   opacity: 0.4;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   transition: opacity 0.3s ease, fill 0.25s ease;
 }
 
 .nameLabel {
-  opacity: 0.85;
+  opacity: 0.9;
+  letter-spacing: -0.01em;
   transition:
     opacity 0.3s ease,
-    transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
     fill 0.25s ease;
   transform-origin: left center;
 }
@@ -47,15 +67,20 @@
   opacity: 1;
 }
 
-.anchorHover .numLabel {
+.anchorHover .dotRing {
   opacity: 0.7;
+  transform: scale(1);
+}
+
+.anchorHover .numLabel {
+  opacity: 0.75;
   fill: var(--color-mark);
 }
 
 .anchorHover .nameLabel {
   opacity: 1;
   fill: var(--color-ink);
-  transform: translateX(4px);
+  transform: translateX(6px);
 }
 
 /* ── Other anchors dim when one is active ──────────── */
@@ -64,25 +89,39 @@
 }
 
 .anchorDimmed .nameLabel {
-  opacity: 0.35;
+  opacity: 0.32;
 }
 
 .anchorDimmed .numLabel {
-  opacity: 0.18;
+  opacity: 0.16;
 }
 
-/* ── Keyboard focus mirror hover ───────────────────── */
+/* ── Keyboard focus mirrors hover ──────────────────── */
 .anchor:focus-visible .dot {
   fill: var(--color-mark);
   opacity: 1;
 }
 
+.anchor:focus-visible .dotRing {
+  opacity: 0.7;
+  transform: scale(1);
+}
+
 .anchor:focus-visible .nameLabel {
   opacity: 1;
-  transform: translateX(4px);
+  transform: translateX(6px);
 }
 
 .anchor:focus-visible .numLabel {
-  opacity: 0.7;
+  opacity: 0.75;
   fill: var(--color-mark);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot,
+  .dotRing,
+  .numLabel,
+  .nameLabel {
+    transition: none;
+  }
 }

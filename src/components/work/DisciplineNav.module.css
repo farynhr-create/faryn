@@ -1,0 +1,95 @@
+.wrap {
+  position: sticky;
+  top: var(--nav-height);
+  z-index: 5;
+  background: color-mix(in srgb, var(--color-paper) 92%, transparent);
+  backdrop-filter: saturate(140%) blur(8px);
+  -webkit-backdrop-filter: saturate(140%) blur(8px);
+  border-bottom: var(--hairline);
+}
+
+.inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-3) var(--content-padding);
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  opacity: 0.4;
+}
+
+.tabs {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex: 1;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+
+.tab {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45em;
+  padding: 0.55rem 0.9rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  opacity: 0.55;
+  white-space: nowrap;
+  background: transparent;
+  border-radius: 999px;
+  transition: opacity 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+
+.tab:hover {
+  opacity: 0.95;
+}
+
+.tabCount {
+  font-size: 0.55rem;
+  opacity: 0.55;
+  letter-spacing: 0.1em;
+}
+
+.tabActive {
+  opacity: 1;
+  color: var(--color-paper);
+  background: var(--color-ink);
+}
+.tabActive .tabCount { opacity: 0.7; }
+
+/* The active pill grows a small red mark on the left — echoes the brand seal */
+.tabActive::before {
+  content: '';
+  position: absolute;
+  left: -10px;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-mark);
+  transform: translateY(-50%);
+}
+
+@media (max-width: 640px) {
+  .inner {
+    padding-inline: var(--space-5);
+    gap: var(--space-3);
+  }
+  .label { display: none; }
+  .tabActive::before { display: none; }
+}
