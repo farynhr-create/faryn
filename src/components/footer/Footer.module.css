@@ -77,31 +77,23 @@
 .bottomLinks {
   display: flex;
   align-items: center;
-  gap: var(--space-3);
+  gap: var(--space-4);
 }
 
-.socialLink {
-  font-family: var(--font-mono);
-  font-size: var(--text-micro);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-ink);
-  text-decoration: none;
-  border-bottom: 1px solid currentColor;
-  opacity: 0.7;
-  transition: opacity 0.4s ease;
+.iconLink {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   min-height: 44px;
-}
-.socialLink:hover { opacity: 1; }
-
-.dot {
-  font-family: var(--font-mono);
-  font-size: var(--text-micro);
+  min-width: 44px;
   color: var(--color-ink);
-  opacity: 0.35;
-  user-select: none;
+  opacity: 0.5;
+  transition: color 0.4s ease, opacity 0.4s ease;
+  text-decoration: none;
+}
+.iconLink:hover {
+  color: var(--color-mark);
+  opacity: 1;
 }
 
 @media (max-width: 768px) {

@@ -1,3 +1,4 @@
+import Icon from '@/components/ui/Icon'
 import SectionLabel from '@/components/ui/SectionLabel'
 import Hairline from '@/components/ui/Hairline'
 import styles from './ContactCTA.module.css'
@@ -19,18 +20,19 @@ export default function ContactCTA() {
           <div className={styles.social}>
             <a
               href="https://www.linkedin.com/in/farnoosh-rouhi-58424180/"
-              className={styles.socialLink}
+              className={styles.iconLink}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="LinkedIn"
             >
-              LinkedIn
+              <Icon name="linkedin" size={24} />
             </a>
-            <span className={styles.dot} aria-hidden="true">·</span>
             <a
               href="#instagram-placeholder"
-              className={styles.socialLink}
+              className={styles.iconLink}
+              aria-label="Instagram"
             >
-              Instagram
+              <Icon name="instagram" size={24} />
             </a>
           </div>
         </div>

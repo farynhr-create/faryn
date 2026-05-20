@@ -5,6 +5,7 @@ import SectionLabel from '@/components/ui/SectionLabel'
 import Hairline from '@/components/ui/Hairline'
 import GhostLink from '@/components/ui/GhostLink'
 import styles from './About.module.css'
+import { useScrollReveal } from '@/hooks/useScrollReveal'
 
 const HEADLINE_WORDS = [
   { text: "I'm",      italic: false },
@@ -99,6 +100,19 @@ export default function About() {
       return true
     } catch { return false }
   })
+
+  const { ref: bioMetaRef,  isVisible: bioMetaVisible }  = useScrollReveal()
+  const { ref: stanza1Ref,  isVisible: stanza1Visible }  = useScrollReveal()
+  const { ref: stanza2Ref,  isVisible: stanza2Visible }  = useScrollReveal()
+  const { ref: stanza3Ref,  isVisible: stanza3Visible }  = useScrollReveal()
+  const { ref: stanza4Ref,  isVisible: stanza4Visible }  = useScrollReveal()
+  const { ref: stanza5Ref,  isVisible: stanza5Visible }  = useScrollReveal()
+  const { ref: whatMetaRef, isVisible: whatMetaVisible } = useScrollReveal()
+  const { ref: row1Ref,     isVisible: row1Visible }     = useScrollReveal()
+  const { ref: row2Ref,     isVisible: row2Visible }     = useScrollReveal()
+  const { ref: row3Ref,     isVisible: row3Visible }     = useScrollReveal()
+  const rowRefs    = [row1Ref,    row2Ref,    row3Ref]
+  const rowVisibles = [row1Visible, row2Visible, row3Visible]
 
   return (
     <>
@@ -264,7 +278,7 @@ export default function About() {
         {/* ── Background ─────────────────────────────── */}
         <section className={styles.bio} aria-labelledby="bio-label">
           <div className={styles.bioInner}>
-            <div className={styles.bioMeta}>
+            <div ref={bioMetaRef} className={`${styles.bioMeta} ${styles.reveal} ${bioMetaVisible ? styles.inView : ''}`}>
               <SectionLabel id="bio-label" variant="before">Background</SectionLabel>
               <p className={styles.bioMetaNote}>
                 Five short notes on how the practice was built — and how it
@@ -273,7 +287,7 @@ export default function About() {
             </div>
 
             <article className={styles.bioBody}>
-              <div className={styles.stanza}>
+              <div ref={stanza1Ref} className={`${styles.stanza} ${styles.reveal} ${stanza1Visible ? styles.inView : ''}`} style={{ transitionDelay: '0ms' }}>
                 <span className={styles.stanzaTag}>
                   <span className={styles.stanzaIdx}>01</span>
                   <span>Origin</span>
@@ -288,7 +302,7 @@ export default function About() {
                 </p>
               </div>
 
-              <div className={styles.stanza}>
+              <div ref={stanza2Ref} className={`${styles.stanza} ${styles.reveal} ${stanza2Visible ? styles.inView : ''}`} style={{ transitionDelay: '200ms' }}>
                 <span className={styles.stanzaTag}>
                   <span className={styles.stanzaIdx}>02</span>
                   <span>Training</span>
@@ -303,7 +317,7 @@ export default function About() {
                 </p>
               </div>
 
-              <div className={styles.stanza}>
+              <div ref={stanza3Ref} className={`${styles.stanza} ${styles.reveal} ${stanza3Visible ? styles.inView : ''}`} style={{ transitionDelay: '400ms' }}>
                 <span className={styles.stanzaTag}>
                   <span className={styles.stanzaIdx}>03</span>
                   <span>Approach</span>
@@ -325,7 +339,7 @@ export default function About() {
                 </p>
               </div>
 
-              <div className={styles.stanza}>
+              <div ref={stanza4Ref} className={`${styles.stanza} ${styles.reveal} ${stanza4Visible ? styles.inView : ''}`} style={{ transitionDelay: '600ms' }}>
                 <span className={styles.stanzaTag}>
                   <span className={styles.stanzaIdx}>04</span>
                   <span>Today</span>
@@ -340,12 +354,12 @@ export default function About() {
                 </p>
               </div>
 
-              <div className={styles.stanza}>
+              <div ref={stanza5Ref} className={`${styles.stanza} ${styles.reveal} ${stanza5Visible ? styles.inView : ''}`}>
                 <span className={styles.stanzaTag}>
                   <span className={styles.stanzaIdx}>05</span>
                   <span>Working with me</span>
                 </span>
-                <p className={styles.body}>
+                <p className={`${styles.body} ${styles.closingText}`}>
                   I take on a small number of projects at a time, and I'm
                   selective about fit. If your team needs design that can hold
                   its own with the strategy behind it — and the strategy that
@@ -366,12 +380,17 @@ export default function About() {
         {/* ── What I Do ──────────────────────────────── */}
         <section className={styles.whatIDo} aria-labelledby="whatido-label">
           <div className={styles.whatIDoInner}>
-            <div className={styles.whatIDoMeta}>
+            <div ref={whatMetaRef} className={`${styles.whatIDoMeta} ${styles.reveal} ${whatMetaVisible ? styles.inView : ''}`}>
               <SectionLabel id="whatido-label" variant="before">What I Do</SectionLabel>
             </div>
             <dl className={styles.whatIDoGrid}>
-              {whatIDo.map((row) => (
-                <div key={row.label} className={styles.whatIDoRow}>
+              {whatIDo.map((row, i) => (
+                <div
+                  key={row.label}
+                  ref={rowRefs[i]}
+                  className={`${styles.whatIDoRow} ${styles.reveal} ${rowVisibles[i] ? styles.inView : ''}`}
+                  style={{ transitionDelay: `${i * 150}ms` }}
+                >
                   <dt className={styles.whatIDoLabel}>{row.label}</dt>
                   <dd className={styles.whatIDoContent}>{row.content}</dd>
                 </div>

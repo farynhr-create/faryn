@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import Hairline from '@/components/ui/Hairline'
 import LogoLockup from '@/components/brand/LogoLockup'
+import Icon from '@/components/ui/Icon'
 import styles from './Footer.module.css'
 
 export default function Footer() {
@@ -43,25 +44,26 @@ export default function Footer() {
           <nav className={styles.bottomLinks} aria-label="Social links">
             <a
               href="https://www.linkedin.com/in/farnoosh-rouhi-58424180/"
-              className={styles.socialLink}
+              className={styles.iconLink}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="LinkedIn"
             >
-              LinkedIn
+              <Icon name="linkedin" size={18} />
             </a>
-            <span className={styles.dot} aria-hidden="true">·</span>
             <a
               href="#instagram-placeholder"
-              className={styles.socialLink}
+              className={styles.iconLink}
+              aria-label="Instagram"
             >
-              Instagram
+              <Icon name="instagram" size={18} />
             </a>
-            <span className={styles.dot} aria-hidden="true">·</span>
             <a
               href="mailto:hello@farynstudio.nl"
-              className={styles.socialLink}
+              className={styles.iconLink}
+              aria-label="Email"
             >
-              Email
+              <Icon name="email" size={18} />
             </a>
           </nav>
         </div>
