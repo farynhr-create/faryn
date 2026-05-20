@@ -19,10 +19,8 @@ const IMAGES = [
   '/images/projects/paintings/painting-01.jpg',
   '/images/projects/drawings/drawing-03.jpg',
   '/images/projects/paintings/painting-04.jpg',
-  '/images/projects/ant-element/ant-element-01.jpg',
   '/images/projects/drawings/drawing-05.jpg',
   '/images/projects/paintings/painting-02.jpg',
-  '/images/projects/ant-element/ant-element-06.jpg',
 ]
 
 const CYCLE_MS = 2800

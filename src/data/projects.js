@@ -62,73 +62,11 @@ export const projects = [
       { src: '/images/projects/paintings/painting-06.jpg', caption: null },
     ],
   },
-  {
-    slug: 'not-all-impact-is-visible',
-    title: 'Not All Impact Is Visible',
-    subtitle: 'Editorial carousel for Ant.Element',
-    category: 'brochure',
-    filterLabel: 'Brochure',
-    year: '2024',
-    role: 'Art Director & Content Designer',
-    client: 'Ant.Element',
-    medium: 'Editorial design, Instagram carousel',
-    thumbnail: '/images/projects/ant-element/ant-element-01.jpg',
-    context: [
-      'A five-slide editorial carousel designed to reframe how audiences think about social impact. The central argument: the ventures doing the most significant work often go unseen and underfunded — because visibility and impact are not the same thing.',
-      'The carousel opens with an iceberg diagram to make that distinction immediate and visual. What is measurable floats above the surface; what is real often does not. Each slide deepens the argument progressively, building toward a clear positioning statement for Ant.Element.',
-    ],
-    thinking: [
-      'The visual system is built for urgency without noise. Navy backgrounds, condensed white typography, and gold accents create authority without heaviness. The iceberg on the opening slide does the conceptual work upfront — every slide that follows builds on a frame the reader already holds.',
-      'The pacing mirrors the logic of the argument. The first two slides establish the problem. Slides three and four reframe it — from a talent deficit to a system design failure. The fifth slide resolves with Ant.Element\'s positioning. Each swipe is a beat in a structured narrative, not a series of disconnected messages.',
-    ],
-    outcome: {
-      description: 'Published as an organic Instagram carousel for Ant.Element. Designed to function simultaneously as a brand statement and an advocacy tool — introducing the organisation\'s philosophy to new audiences in a format native to the platform.',
-      metrics: null,
-    },
-    gallery: [
-      { src: '/images/projects/ant-element/ant-element-01.jpg', caption: 'Not all impact is visible — opening slide with iceberg diagram' },
-      { src: '/images/projects/ant-element/ant-element-02.jpg', caption: 'Resources flow to what looks good, not what actually works' },
-      { src: '/images/projects/ant-element/ant-element-03.jpg', caption: 'Impact ventures creating real change — unseen and underfunded' },
-      { src: '/images/projects/ant-element/ant-element-04.jpg', caption: 'Not a talent problem. A system design problem.' },
-      { src: '/images/projects/ant-element/ant-element-05.jpg', caption: 'Ant.Element — supporting real impact through execution and access' },
-    ],
-  },
-  {
-    slug: 'why-ant',
-    title: 'Why “ANT”?',
-    subtitle: 'Brand narrative carousel for Ant.Element',
-    category: 'brochure',
-    filterLabel: 'Brochure',
-    year: '2024',
-    role: 'Art Director & Content Designer',
-    client: 'Ant.Element',
-    medium: 'Editorial design, brand storytelling',
-    thumbnail: '/images/projects/ant-element/ant-element-09.jpg',
-    context: [
-      'A four-slide carousel that answers the question most new audiences ask on first encounter: why the name Ant.Element? Rather than a direct explanation, the piece uses contrast — the oversized lightbulb versus the small, purposeful ant — to make the philosophy memorable rather than just legible.',
-      'The ants are never shown alone. They move as a group, carrying what no single one of them could. This visual choice reinforces the brand\'s core argument: that meaningful, lasting change emerges from small actions, collective effort, and consistency — not singular breakthroughs.',
-    ],
-    thinking: [
-      'The warm cream palette shifts the register deliberately. Where the "Not All Impact Is Visible" carousel used a dark, urgent system, this piece is reflective and philosophical — a different mode of the same brand voice. The two carousels work as a pair: one makes the argument, the other explains the name behind it.',
-      'Typographically, the slides are stripped back. Less contrast, more white space, shorter lines. The ant illustrations are doing more of the storytelling here, and the design clears space for them. The final slide — "That\'s what Ant.Element stands for" — is intentionally spare. By the time the reader reaches it, the argument has already been made.',
-    ],
-    outcome: {
-      description: 'Published as an organic Instagram carousel for Ant.Element. Designed to introduce the organisation\'s name and founding philosophy to audiences encountering the brand for the first time.',
-      metrics: null,
-    },
-    gallery: [
-      { src: '/images/projects/ant-element/ant-element-06.jpg', caption: 'Why “ANT”? — opening the question' },
-      { src: '/images/projects/ant-element/ant-element-07.jpg', caption: 'Real change doesn\'t come from one big idea' },
-      { src: '/images/projects/ant-element/ant-element-08.jpg', caption: 'Small actions, collective effort, and consistency' },
-      { src: '/images/projects/ant-element/ant-element-09.jpg', caption: 'That\'s what Ant.Element stands for' },
-    ],
-  },
 ]
 
 export const filterCategories = [
   { id: 'all',       label: 'All' },
   { id: 'drawings',  label: 'Drawings' },
   { id: 'paintings', label: 'Paintings' },
-  { id: 'brochure',  label: 'Brochure' },
   { id: 'website',   label: 'Website' },
 ]

@@ -49,7 +49,7 @@ const disciplines = [
 const facts = [
   {
     label: 'Selected clients',
-    items: ['EYE Film Institute', 'Galerie Bart', 'Ant.Element', 'Confidential — agriculture'],
+    items: ['EYE Film Institute', 'Galerie Bart', 'Confidential — agriculture'],
   },
   {
     label: 'Exhibitions',
