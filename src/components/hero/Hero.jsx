@@ -57,8 +57,8 @@ export default function Hero() {
             variants={reduced ? {} : fadeUp}
             custom={2}
           >
-            Drawings, paintings, and digital design<br />
-            from an independent practice.
+            I'm Farnoosh — a content designer building visual<br />
+            systems for brands that need both craft and strategy.
           </motion.p>
 
           <motion.div
