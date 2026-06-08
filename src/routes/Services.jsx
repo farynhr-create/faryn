@@ -67,6 +67,7 @@ export default function Services() {
         <Hairline />
 
         <PageHeader
+          hideMark
           index="02 / 04"
           label="Practice"
           meta={[

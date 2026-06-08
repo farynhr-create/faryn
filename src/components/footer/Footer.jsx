@@ -52,7 +52,7 @@ export default function Footer() {
               <Icon name="linkedin" size={18} />
             </a>
             <a
-              href="#instagram-placeholder"
+              href="https://www.instagram.com/_farn_art_"
               className={styles.iconLink}
               aria-label="Instagram"
             >

@@ -14,8 +14,9 @@
   transition: background 0.2s ease;
 }
 
-.btn:hover {
-  background: var(--color-ink-soft);
+.btn:hover,
+.btn:focus-visible {
+  background: var(--color-mark);
 }
 
 .arrow {

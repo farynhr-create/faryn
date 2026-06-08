@@ -37,11 +37,15 @@
   text-decoration: none;
   border-bottom: 1px solid currentColor;
   opacity: 0.7;
-  transition: opacity 0.4s ease;
+  transition: color 0.4s ease, opacity 0.4s ease;
   display: inline-block;
   padding-block: 0.25rem;
 }
-.emailLink:hover { opacity: 1; }
+.emailLink:hover,
+.emailLink:focus-visible {
+  color: var(--color-mark);
+  opacity: 1;
+}
 
 .social {
   display: flex;

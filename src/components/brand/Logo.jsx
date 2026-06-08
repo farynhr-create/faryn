@@ -96,6 +96,7 @@ export default function Logo({
         {cols.map((cx, i) => (
           <circle
             key={`dot-${i}`}
+            id={i === 2 ? 'logo-dot-red' : undefined}
             data-dot={i === 2 ? 'red' : 'ink'}
             data-i={i}
             cx={cx}

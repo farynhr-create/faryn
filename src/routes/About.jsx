@@ -19,8 +19,8 @@ const HEADLINE_WORDS = [
   { lineBreak: true },
   { text: 'before',   italic: false },
   { text: 'learning', italic: false },
-  { text: 'to',       italic: true  },
-  { text: 'code.',    italic: true  },
+  { text: 'to',      italic: true  },
+  { text: 'design.', italic: true  },
 ]
 
 const disciplines = [
@@ -48,20 +48,39 @@ const disciplines = [
 
 const facts = [
   {
-    label: 'Selected clients',
-    items: ['EYE Film Institute', 'Galerie Bart', 'Confidential — agriculture'],
-  },
-  {
     label: 'Exhibitions',
-    items: ['Galerie Bart, Amsterdam — 2024', 'Open Studios NDSM — 2023', 'Group show, Het Hem — 2022'],
-  },
-  {
-    label: 'Recognition',
-    items: ['Stimuleringsfonds grantee — 2023', 'Mondriaan Fonds — shortlist, 2022'],
+    items: [
+      'Group painting exhibition, Ehsan Gallery, Tehran — 2024',
+      'Sateen third online annual exhibition "Milestone", sateenfair.com — 2023',
+      'Online Art Room project, artgalleries.ir — 2021',
+      'Fourth annual exhibition, Alborz Painters Association, Mehrad Gallery, Karaj — 2021',
+      'Painting exhibition "Art in quarantine", Mannagart online gallery, Tehran — 2020',
+      'Group painting exhibition, Farman Farma Gallery, Tehran — 2019',
+      'Group painting exhibition, Ideh Gallery, Tehran — 2019',
+      'Group painting exhibition, Imam Ali Art Museum Gallery, Tehran — 2018',
+      'Group painting exhibition, Vernissage Gallery, Tbilisi — 2018',
+      'Group painting exhibition, Doran Gallery, Isfahan — 2018',
+      'Group painting exhibition, Saint-Roch Gallery, Paris — 2018',
+      'Group painting exhibition, Iranian Artist Home, Tehran — 2017',
+      'Group painting exhibition, Pardis Mellat Gallery, Tehran — 2017',
+      'Drawing festival, Kamal Gallery, Karaj-Alborz — 2016',
+      'Alborz Painters Association exhibitions, Alborz Artist House, Karaj — 2016',
+      'Group painting exhibition, Ariya Gallery, Tehran — 2015',
+      'Group painting exhibition, Fadjr Gallery, Karaj-Alborz — 2015',
+      'Painting festival "Second painting week in Tehran", Saba Gallery — 2015',
+      'Group painting exhibition, Ehsan Gallery, Tehran — 2015',
+      'Group painting exhibition, Naghshe Jahan Gallery, Tehran — 2015',
+      'Sixth Fadjr international festival of visual arts, Tehran — 2014',
+      'Group painting exhibition, Behzad Gallery, Tehran — 2008',
+    ],
   },
   {
     label: 'Background',
-    items: ['BA Fine Art, Gerrit Rietveld Academie', 'Working independently since 2018'],
+    items: [
+      'MA Content & Media Strategy, NHL Stenden University of Applied Sciences, Leeuwarden, The Netherlands — 2025',
+      'BA Fine Art, Alzahra University, Tehran, Iran — 2013',
+      'Working independently since 2012',
+    ],
   },
 ]
 
@@ -401,29 +420,42 @@ export default function About() {
 
         <Hairline />
 
-        {/* ── Selected facts ─────────────────────────── */}
-        <section className={styles.facts} aria-labelledby="facts-label">
-          <div className={styles.factsInner}>
-            <div className={styles.factsMeta}>
+        {/* ── Index ─────────────────────────────────── */}
+        <section className={styles.index} aria-labelledby="facts-label">
+          <div className={styles.indexInner}>
+            <header className={styles.indexTop}>
               <SectionLabel id="facts-label" variant="before">Index</SectionLabel>
-            </div>
-            <dl className={styles.factsList}>
-              {facts.map((f) => (
-                <div key={f.label} className={styles.factRow}>
-                  <dt className={styles.factLabel}>
-                    <span className={styles.factDot} aria-hidden="true" />
-                    {f.label}
-                  </dt>
-                  <dd className={styles.factItems}>
-                    {f.items.map((item) => (
-                      <span key={item} className={styles.factItem}>
-                        {item}
-                      </span>
-                    ))}
-                  </dd>
+            </header>
+
+            {facts.map((f) => {
+              const isNumbered = f.items.length > 3
+              return (
+                <div key={f.label} className={styles.indexBlock}>
+                  <div className={styles.indexBlockHead}>
+                    <span className={styles.indexBlockLabel}>{f.label}</span>
+                    <span className={styles.indexBlockCount}>{String(f.items.length).padStart(2, '0')}</span>
+                  </div>
+                  <ul className={styles.indexList} role="list">
+                    {f.items.map((item, i) => {
+                      const match = item.match(/^(.+?)\s—\s(\d{4})$/)
+                      const text  = match ? match[1] : item
+                      const year  = match ? match[2] : null
+                      return (
+                        <li key={item} className={styles.indexItem}>
+                          {isNumbered && (
+                            <span className={styles.indexNum} aria-hidden="true">
+                              {String(i + 1).padStart(2, '0')}
+                            </span>
+                          )}
+                          <span className={styles.indexText}>{text}</span>
+                          {year && <span className={styles.indexYear}>{year}</span>}
+                        </li>
+                      )
+                    })}
+                  </ul>
                 </div>
-              ))}
-            </dl>
+              )
+            })}
           </div>
         </section>
 

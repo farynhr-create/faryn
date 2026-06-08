@@ -16,6 +16,7 @@
 /* ─── Section (one project) ────────────────────────── */
 .section {
   border-top: var(--hairline);
+  cursor: pointer;
 }
 .section:last-child {
   border-bottom: var(--hairline);
@@ -105,7 +106,7 @@
 .body {
   display: flex;
   flex-direction: column;
-  gap: var(--space-5);
+  gap: var(--space-7);
   min-width: 0;
 }
 
@@ -113,6 +114,17 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
+}
+
+.titleLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+.titleLink:hover .title {
+  text-decoration: underline;
+  text-decoration-thickness: 0.5px;
+  text-underline-offset: 4px;
 }
 
 .title {
@@ -135,16 +147,35 @@
   max-width: 52ch;
 }
 
-/* ─── Gallery wrappers ─────────────────────────────── */
-.gallery {
-  padding-top: var(--space-4);
+/* ─── Context prose ────────────────────────────────── */
+.contextGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4) var(--space-8);
+  padding-bottom: var(--space-2);
 }
 
-/* ─── Artwork mode (drawings / paintings) ──────────── */
-.artworkStack {
+.contextPara {
+  font-family: var(--font-serif);
+  font-size: 1.02rem;
+  line-height: 1.82;
+  color: var(--color-ink);
+  opacity: 0.8;
+  margin: 0;
+}
+
+/* ─── Gallery wrapper ──────────────────────────────── */
+.gallery {
   display: flex;
   flex-direction: column;
-  gap: var(--space-7);
+  gap: 0;
+}
+
+/* ─── Artwork grid (drawings / paintings) ──────────── */
+.artworkGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
 }
 
 .plate {
@@ -157,47 +188,28 @@
 .plateFrame {
   position: relative;
   overflow: hidden;
+  aspect-ratio: 4 / 5;
   background: var(--color-paper-deep);
-  border: 0.5px solid rgba(10, 10, 10, 0.08);
+  border: 0.5px solid rgba(10, 10, 10, 0.07);
 }
 
 .plateFrame img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
   display: block;
-  transition: transform 1.2s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+  padding: var(--space-4);
+  box-sizing: border-box;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .plate:hover .plateFrame img {
-  transform: scale(1.025);
-}
-
-.plateLead .plateFrame {
-  aspect-ratio: 4 / 3;
-}
-
-.plateGrid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-6) var(--space-5);
-}
-
-.plateGrid .plate .plateFrame {
-  aspect-ratio: 3 / 4;
-}
-
-/* Orphan at the end of a 2-col grid → feature it full-width with a landscape crop */
-.plateGrid .plate:last-child:nth-child(odd) {
-  grid-column: 1 / -1;
-}
-.plateGrid .plate:last-child:nth-child(odd) .plateFrame {
-  aspect-ratio: 16 / 9;
+  transform: scale(1.03);
 }
 
 /* Caption */
-.plateCaption,
-.editorialCaption {
+.plateCaption {
   display: grid;
   grid-template-columns: 28px 1fr;
   gap: var(--space-3);
@@ -206,7 +218,7 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-ink);
-  opacity: 0.55;
+  opacity: 0.5;
   line-height: 1.55;
 }
 
@@ -214,41 +226,266 @@
   opacity: 0.55;
 }
 
-/* ─── Editorial mode (carousel slides as a column) ──── */
-.editorialStack {
+/* ─── Carousel series (multi-post, e.g. Ant.Element) ── */
+.carouselSeries {
   display: flex;
   flex-direction: column;
+  gap: var(--space-8);
+}
+
+.carouselPost {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.carouselPostHead {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: var(--hairline);
+}
+
+.carouselPostLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  opacity: 0.38;
+  white-space: nowrap;
+}
+
+.carouselPostTitle {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--color-ink);
+  opacity: 0.72;
+}
+
+.carouselRow {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-3);
+  align-items: start;
+}
+
+/* Post 2 has 4 slides — keep them at natural width */
+.carouselRow:has(> :last-child:nth-child(4)) {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.carouselSlide {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.carouselFrame {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: var(--color-paper-deep);
+  border: 0.5px solid rgba(10, 10, 10, 0.07);
+  transition: box-shadow 0.4s ease;
+}
+
+.carouselFrame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.carouselSlide:hover .carouselFrame img {
+  transform: scale(1.03);
+}
+
+.carouselCaption {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  opacity: 0.45;
+  line-height: 1.5;
+}
+
+/* ─── Video grid ───────────────────────────────────── */
+.videoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--space-6);
 }
 
-.editorialSlide {
+.videoItem {
   margin: 0;
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
 }
 
-.editorialFrame {
+.videoFrame {
   position: relative;
   overflow: hidden;
-  aspect-ratio: 4 / 5;
-  background: var(--color-paper-deep);
-  border: 0.5px solid rgba(10, 10, 10, 0.08);
+  background: #0a0a0a;
+  border: 0.5px solid rgba(10, 10, 10, 0.1);
+  border-radius: 2px;
 }
 
-.editorialFrame img {
+.videoFrame video {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 1.2s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
 }
 
-.editorialSlide:hover .editorialFrame img {
-  transform: scale(1.015);
+.videoCaption {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  opacity: 0.5;
+  line-height: 1.55;
+}
+
+/* ─── Content design — carousel slide grid ─────────── */
+.slideGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-5);
+}
+
+.slide {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.slideFrame {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: var(--color-paper-deep);
+  border: 0.5px solid rgba(10, 10, 10, 0.07);
+  transition: box-shadow 0.4s ease;
+}
+
+.slideFrame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.slide:hover .slideFrame img {
+  transform: scale(1.02);
+}
+
+.slideCaption {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  opacity: 0.5;
+  line-height: 1.55;
+}
+
+/* ─── View project link ────────────────────────────── */
+.viewLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  text-decoration: none;
+  opacity: 0.55;
+  padding-top: var(--space-5);
+  border-top: var(--hairline);
+  transition: opacity 0.25s ease;
+  align-self: flex-start;
+  width: 100%;
+}
+
+.viewLink:hover {
+  opacity: 1;
+}
+
+/* ─── Process / thinking ───────────────────────────── */
+.thinkingGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6) var(--space-8);
+  padding-top: var(--space-6);
+  border-top: var(--hairline);
+}
+
+.pullQuote {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.quoteIdx {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  opacity: 0.3;
+}
+
+.pullQuote p {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.08rem;
+  line-height: 1.78;
+  color: var(--color-ink);
+  opacity: 0.72;
+  margin: 0;
 }
 
 /* ─── Responsive ───────────────────────────────────── */
+@media (max-width: 1200px) {
+  .carouselRow {
+    overflow-x: auto;
+    grid-template-columns: repeat(5, min(38vw, 180px));
+    padding-bottom: var(--space-3);
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .carouselRow:has(> :last-child:nth-child(4)) {
+    grid-template-columns: repeat(4, min(38vw, 180px));
+  }
+  .carouselSlide {
+    scroll-snap-align: start;
+  }
+  .carouselSlide:hover .carouselFrame img {
+    transform: none;
+  }
+}
+
 @media (max-width: 1024px) {
   .sectionInner {
     grid-template-columns: 1fr;
@@ -275,10 +512,10 @@
     border-bottom: none;
     padding-block: var(--space-1);
   }
-  .note,
-  .outcome {
+  .contextGrid,
+  .thinkingGrid {
     grid-template-columns: 1fr;
-    gap: var(--space-3);
+    gap: var(--space-5);
   }
 }
 
@@ -290,24 +527,21 @@
   .meta {
     grid-template-columns: 1fr;
   }
-  .plateGrid {
+  .artworkGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+  .slideGrid,
+  .videoGrid {
     grid-template-columns: 1fr;
-    gap: var(--space-5);
-  }
-  .plateGrid .plate .plateFrame {
-    aspect-ratio: 4 / 5;
-  }
-  .plateLead .plateFrame {
-    aspect-ratio: 4 / 5;
-  }
-  .editorialFrame {
-    aspect-ratio: 1 / 1;
+    gap: var(--space-4);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .plateFrame img,
-  .editorialFrame img {
+  .carouselFrame img,
+  .slideFrame img {
     transition: none;
   }
 }

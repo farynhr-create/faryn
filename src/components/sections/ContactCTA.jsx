@@ -28,7 +28,7 @@ export default function ContactCTA() {
               <Icon name="linkedin" size={24} />
             </a>
             <a
-              href="#instagram-placeholder"
+              href="https://www.instagram.com/_farn_art_"
               className={styles.iconLink}
               aria-label="Instagram"
             >

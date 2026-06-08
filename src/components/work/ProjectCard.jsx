@@ -4,12 +4,14 @@ import { motion } from 'framer-motion'
 import GeometricStudy from '@/components/compositions/GeometricStudy'
 import TopographicCurves from '@/components/compositions/TopographicCurves'
 import TypographicBlock from '@/components/compositions/TypographicBlock'
+import MotionStudy from '@/components/compositions/MotionStudy'
 import styles from './ProjectCard.module.css'
 
 const THUMBNAILS = {
   geometric:   GeometricStudy,
   topographic: TopographicCurves,
   typographic: TypographicBlock,
+  motion:      MotionStudy,
 }
 
 const ProjectCard = memo(function ProjectCard({ project }) {
@@ -21,7 +23,9 @@ const ProjectCard = memo(function ProjectCard({ project }) {
       <div className={styles.thumbnail}>
         {Comp
           ? <Comp />
-          : <img src={thumbnail} alt="" className={styles.thumbnailImg} loading="lazy" />
+          : thumbnail?.endsWith('.mp4')
+            ? <video src={thumbnail} autoPlay muted loop playsInline className={styles.thumbnailImg} />
+            : <img src={thumbnail} alt="" className={styles.thumbnailImg} loading="lazy" />
         }
         {/* Red dot — appears on hover, upper-left of thumbnail */}
         <motion.span

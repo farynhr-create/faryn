@@ -62,12 +62,12 @@
   color: var(--color-ink);
 }
 
-/* Active route — one red mark beneath, brand-continuous */
+/* Active route — red mark directly below the link text */
 .active::after {
   content: '';
   position: absolute;
   left: 50%;
-  bottom: -8px;
+  bottom: -6px;
   width: 4px;
   height: 4px;
   border-radius: 50%;

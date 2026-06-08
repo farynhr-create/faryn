@@ -99,7 +99,7 @@
   content: '';
   position: absolute;
   right: -0.1em;
-  bottom: -0.46em;
+  bottom: calc(-0.32em - 4.5px);
   width: 9px;
   height: 9px;
   border-radius: 50%;

@@ -4,6 +4,7 @@ import { AnimatePresence } from 'framer-motion'
 import { HelmetProvider } from 'react-helmet-async'
 import { LightboxProvider } from '@/context/LightboxContext'
 import { MobileMenuProvider } from '@/context/MobileMenuContext'
+import { IntroProvider } from '@/context/IntroContext'
 import Layout from '@/routes/Layout'
 import Home from '@/routes/Home'
 import Portfolio from '@/routes/Portfolio'
@@ -28,6 +29,7 @@ export default function App() {
 
   return (
     <HelmetProvider>
+      <IntroProvider>
       <MobileMenuProvider>
         <LightboxProvider>
           <BrowserRouter>
@@ -84,6 +86,7 @@ export default function App() {
           )}
         </LightboxProvider>
       </MobileMenuProvider>
+      </IntroProvider>
     </HelmetProvider>
   )
 }

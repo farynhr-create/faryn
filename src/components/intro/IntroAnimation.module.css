@@ -2,44 +2,27 @@
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: var(--color-ink);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: var(--color-paper);
   cursor: pointer;
-  overflow: hidden;
 }
 
-/* Kake-jiku scroll vocabulary — four hairlines, no grid. */
-.backdrop {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+/* The traveling red dot — positioned absolutely from left: 0; top: 0
+   Framer Motion drives x, y, width, height via transform / style */
+.dot {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10000;
+  border-radius: 50%;
+  background: #c4392c;
   pointer-events: none;
 }
 
-.wordmarkWrap {
-  position: relative;
-  z-index: 2;
-  width: 56vw;
-  max-width: 760px;
-  pointer-events: none;
-  user-select: none;
-}
-
-.wordmark {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-/* Skip hint — mirrors the site's SectionLabel "before" variant
- * (a short leading tick followed by mono caps). Calm, not insistent. */
 .skipHint {
-  position: absolute;
+  position: fixed;
   bottom: 2rem;
   right: 2rem;
+  z-index: 10001;
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
@@ -47,7 +30,7 @@
   font-size: 0.62rem;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--color-paper);
+  color: var(--color-ink);
   pointer-events: none;
   user-select: none;
 }
@@ -56,11 +39,14 @@
   display: inline-block;
   width: 18px;
   height: 0.5px;
-  background: var(--color-paper);
-  opacity: 0.6;
+  background: var(--color-ink);
+  opacity: 0.5;
 }
 
 @media (max-width: 768px) {
-  .wordmarkWrap { width: 80vw; }
-  .skipHint { bottom: 1.25rem; right: 1.25rem; font-size: 0.58rem; }
+  .skipHint {
+    bottom: 1.25rem;
+    right: 1.25rem;
+    font-size: 0.58rem;
+  }
 }

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
+import { useIntro } from '@/context/IntroContext'
 import { fadeUp, staggerContainer } from '@/utils/motion'
 import HeroComposition from './HeroComposition'
 import ZenLeaves from './ZenLeaves'
@@ -11,13 +12,23 @@ import Button from '@/components/ui/Button'
 import Hairline from '@/components/ui/Hairline'
 import styles from './Hero.module.css'
 
+// Per-line stagger for the headline
+const lineStagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.18 } },
+}
+
 export default function Hero() {
   const isDesktop = useMediaQuery('(min-width: 1024px)')
   const reduced = useReducedMotion()
+  const { introComplete } = useIntro()
+
+  // Hold all hero content hidden until the intro overlay has cleared
+  const heroAnimate = (reduced || introComplete) ? 'visible' : 'hidden'
 
   const motionProps = reduced
     ? {}
-    : { variants: staggerContainer, initial: 'hidden', animate: 'visible' }
+    : { variants: staggerContainer, initial: 'hidden', animate: heroAnimate }
 
   return (
     <section className={styles.hero} aria-label="Introduction">
@@ -31,25 +42,22 @@ export default function Hero() {
             <SectionLabel variant="before">Visual Studio · Amsterdam</SectionLabel>
           </motion.div>
 
-          {/* Haiku-style 3-line headline with cascading indent.
-              Brushstroke tick opens the verse; the "o" in stories
-              becomes a red dot — the only red mark in the line. */}
+          {/* Haiku-style 3-line headline — each line staggers in separately */}
           <motion.h1
             className={styles.headline}
             aria-label="Art that tells stories"
-            variants={reduced ? {} : fadeUp}
-            custom={1}
+            variants={reduced ? {} : lineStagger}
           >
-            <span className={styles.lineA}>
+            <motion.span className={styles.lineA} variants={reduced ? {} : fadeUp} custom={0}>
               <span className={styles.tick} aria-hidden="true" />
               <span aria-hidden="true">Art</span>
-            </span>
-            <span className={styles.lineB} aria-hidden="true">
+            </motion.span>
+            <motion.span className={styles.lineB} aria-hidden="true" variants={reduced ? {} : fadeUp} custom={0}>
               that <em>tells</em>
-            </span>
-            <span className={styles.lineC} aria-hidden="true">
+            </motion.span>
+            <motion.span className={styles.lineC} aria-hidden="true" variants={reduced ? {} : fadeUp} custom={0}>
               ST<LetterDot />RIES
-            </span>
+            </motion.span>
           </motion.h1>
 
           <motion.p
@@ -57,8 +65,7 @@ export default function Hero() {
             variants={reduced ? {} : fadeUp}
             custom={2}
           >
-            I'm Farnoosh — a content designer building visual<br />
-            systems for brands that need both craft and strategy.
+            I'm Farnoosh — a content designer building visual systems for brands that need both craft and strategy.
           </motion.p>
 
           <motion.div

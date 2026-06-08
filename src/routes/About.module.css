@@ -427,75 +427,107 @@
 
 .contact { margin-top: var(--space-4); }
 
-/* ── Facts (same column grid) ───────────────────────── */
-.facts { background: var(--color-paper); }
+/* ── Index ──────────────────────────────────────────── */
+.index { background: var(--color-paper-deep); }
 
-.factsInner {
+.indexInner {
+  max-width: var(--max-width);
+  margin: 0 auto;
   padding-inline: var(--content-padding);
   padding-block: var(--space-9);
-  display: grid;
-  grid-template-columns: 240px 1fr;
+  display: flex;
+  flex-direction: column;
   gap: var(--space-8);
-  align-items: start;
 }
 
-.factsMeta {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-  padding-top: var(--space-2);
+.indexTop {
+  padding-bottom: var(--space-5);
+  border-bottom: var(--hairline);
 }
 
-.factsList {
-  margin: 0;
+/* ── One category block (Exhibitions / Background / Recognition) ── */
+.indexBlock {
   display: flex;
   flex-direction: column;
 }
 
-.factRow {
-  display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: var(--space-6);
-  padding-block: var(--space-5);
-  border-top: var(--hairline);
+.indexBlockHead {
+  display: flex;
   align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: var(--space-3);
+  margin-bottom: 0;
+  border-bottom: 0.5px solid rgba(10, 10, 10, 0.18);
 }
 
-.factRow:last-child { border-bottom: var(--hairline); }
-
-.factLabel {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  margin: 0;
+.indexBlockLabel {
   font-family: var(--font-mono);
   font-size: var(--text-micro);
-  letter-spacing: 0.16em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--color-ink);
-  opacity: 0.5;
+  opacity: 0.45;
 }
 
-.factDot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--color-mark);
-  opacity: 0.85;
-}
-
-.factItems {
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-
-.factItem {
-  font-family: var(--font-serif);
-  font-size: 1.05rem;
-  line-height: 1.5;
+.indexBlockCount {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.1em;
   color: var(--color-ink);
+  opacity: 0.22;
+}
+
+/* ── Item rows ── */
+.indexList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.indexItem {
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  gap: var(--space-5);
+  padding-block: var(--space-3);
+  border-bottom: 0.5px solid rgba(10, 10, 10, 0.055);
+  align-items: baseline;
+  transition: background 0.2s ease;
+}
+
+/* Items without a number (Background / Recognition) collapse the num col */
+.indexItem:not(:has(.indexNum)) {
+  grid-template-columns: 1fr auto;
+}
+
+.indexItem:last-child {
+  border-bottom: none;
+}
+
+.indexNum {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+  color: var(--color-ink);
+  opacity: 0.28;
+  padding-top: 0.15em;
+}
+
+.indexText {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  line-height: 1.45;
+  color: var(--color-ink);
+  opacity: 0.8;
+}
+
+.indexYear {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.1em;
+  color: var(--color-ink);
+  opacity: 0.38;
+  white-space: nowrap;
+  padding-top: 0.1em;
 }
 
 /* ── Disciplines (same column grid) ─────────────────── */
@@ -662,7 +694,6 @@
     font-size: 1.2rem;
   }
   .bioInner,
-  .factsInner,
   .disciplinesInner,
   .whatIDoInner {
     grid-template-columns: 1fr;
@@ -670,11 +701,10 @@
   }
   .bioMeta { position: static; }
   .bioMetaNote { max-width: 48ch; }
-  .factRow,
-  .whatIDoRow {
-    grid-template-columns: 1fr;
-    gap: var(--space-3);
-  }
+  .whatIDoRow { grid-template-columns: 1fr; gap: var(--space-3); }
+  .indexInner { gap: var(--space-6); padding-block: var(--space-8); }
+  .indexItem { grid-template-columns: 28px 1fr auto; gap: var(--space-3); }
+  .indexItem:not(:has(.indexNum)) { grid-template-columns: 1fr auto; }
   .disciplineGrid { grid-template-columns: 1fr; }
   .pullquote {
     font-size: clamp(1.3rem, 4.2vw, 1.7rem);
@@ -718,11 +748,13 @@
 
 @media (max-width: 640px) {
   .bioInner,
-  .factsInner,
   .disciplinesInner,
   .whatIDoInner {
     padding-inline: var(--space-5);
     padding-block: var(--space-8);
   }
+  .indexInner { padding-inline: var(--space-5); }
+  .indexItem { grid-template-columns: 24px 1fr auto; gap: var(--space-2); }
+  .indexYear { display: none; }
   .textSide { padding: 2.5rem var(--space-5); }
 }

@@ -15,7 +15,7 @@ const projectTypes = [
 
 const channels = [
   { label: 'Email',     value: 'hello@farynstudio.nl', href: 'mailto:hello@farynstudio.nl' },
-  { label: 'Instagram', value: '@faryn.studio',       href: 'https://instagram.com/faryn.studio' },
+  { label: 'Instagram', value: '@faryn.studio',       href: 'https://www.instagram.com/_farn_art_' },
   { label: 'Are.na',    value: 'faryn-studio',         href: 'https://are.na/faryn-studio' },
 ]
 
@@ -39,6 +39,7 @@ export default function Contact() {
         <Hairline />
 
         <PageHeader
+          hideMark
           index="04 / 04"
           label="Contact"
           meta={[

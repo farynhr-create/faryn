@@ -90,9 +90,10 @@
   transition: border-color 0.2s ease, color 0.2s ease;
 }
 
-.channelLink:hover {
+.channelLink:hover,
+.channelLink:focus-visible {
   border-bottom-color: var(--color-mark);
-  color: var(--color-ink);
+  color: var(--color-mark);
 }
 
 .statusDot {
