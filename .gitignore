@@ -1,3 +1,9 @@
 node_modules/
 dist/
 .DS_Store
+
+# Raw image drops / working scratch (not site assets)
+/IMG_*.JPG
+/IMG_*.jpg
+/N.*.jpg
+/incoming/
