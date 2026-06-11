@@ -20,14 +20,9 @@ export default function Footer() {
           </Link>
         </div>
 
-        <nav className={styles.nav} aria-label="Footer navigation">
-          <ul className={styles.navList}>
-            <li><Link to="/portfolio" className={styles.navLink}>Portfolio</Link></li>
-            <li><Link to="/services" className={styles.navLink}>Services</Link></li>
-            <li><Link to="/about"    className={styles.navLink}>About</Link></li>
-            <li><Link to="/contact"  className={styles.navLink}>Contact</Link></li>
-          </ul>
-        </nav>
+        <div className={styles.tagline}>
+          <p className={styles.taglineText}>Available for freelance projects</p>
+        </div>
 
         <div className={styles.meta}>
           <p className={styles.location}>Amsterdam, NL</p>
@@ -49,21 +44,23 @@ export default function Footer() {
               rel="noopener noreferrer"
               aria-label="LinkedIn"
             >
-              <Icon name="linkedin" size={18} />
+              <Icon name="linkedin" size={22} />
             </a>
             <a
               href="https://www.instagram.com/_farn_art_"
               className={styles.iconLink}
+              target="_blank"
+              rel="noopener noreferrer"
               aria-label="Instagram"
             >
-              <Icon name="instagram" size={18} />
+              <Icon name="instagram" size={22} />
             </a>
             <a
               href="mailto:hello@farynstudio.nl"
               className={styles.iconLink}
               aria-label="Email"
             >
-              <Icon name="email" size={18} />
+              <Icon name="email" size={22} />
             </a>
           </nav>
         </div>
